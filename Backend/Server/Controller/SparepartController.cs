@@ -38,7 +38,7 @@ namespace Server.Controller
                     StatusCode = 500,
                     Ok = false,
                     Data = null,
-                    Error = ex.Message
+                    Error = new { message = ex.Message }
                 });
             }
         }
@@ -54,7 +54,7 @@ namespace Server.Controller
                     StatusCode = 404,
                     Ok = false,
                     Data = null,
-                    Error = "Sparepart ID not found"
+                    Error = new { message = "Sparepart ID not found" }
                 });
             }
             Service service = new(_connString);
@@ -69,7 +69,7 @@ namespace Server.Controller
                     StatusCode = 500,
                     Ok = false,
                     Data = null,
-                    Error = ex.Message
+                    Error = new { message = ex.Message }
                 });
             }
             if (sparepart == null)
@@ -79,7 +79,7 @@ namespace Server.Controller
                     StatusCode = 404,
                     Ok = false,
                     Data = null,
-                    Error = "Sparepart not found"
+                    Error = new { message = "Sparepart not found" }
                 });
             }
             return Ok(new Response<Model?>
@@ -104,7 +104,7 @@ namespace Server.Controller
                     StatusCode = 400,
                     Ok = false,
                     Data = null,
-                    Error = "Invalid sparepart data"
+                    Error = new { message = "Invalid sparepart data" }
                 });
             }
 
@@ -120,7 +120,7 @@ namespace Server.Controller
                     StatusCode = 409,
                     Ok = false,
                     Data = null,
-                    Error = "Sparepart with the same ID already exists"
+                    Error = new { message = "Sparepart with the same ID already exists" }
                 });
             }
             catch (Exception ex)
@@ -130,7 +130,7 @@ namespace Server.Controller
                     StatusCode = 500,
                     Ok = false,
                     Data = null,
-                    Error = ex.Message
+                    Error = new { message = ex.Message }
                 });
             }
 
@@ -156,7 +156,7 @@ namespace Server.Controller
                     StatusCode = 400,
                     Ok = false,
                     Data = null,
-                    Error = "Invalid sparepart data or ID"
+                    Error = new { message = "Invalid sparepart data or ID" }
                 });
             }
 
@@ -172,7 +172,7 @@ namespace Server.Controller
                     StatusCode = 404,
                     Ok = false,
                     Data = null,
-                    Error = "Sparepart ID not found"
+                    Error = new { message = "Sparepart ID not found" }
                 });
             }
             catch (Exception ex)
@@ -182,7 +182,7 @@ namespace Server.Controller
                     StatusCode = 500,
                     Ok = false,
                     Data = null,
-                    Error = ex.Message
+                    Error = new { message = ex.Message }
                 });
             }
             return Ok(new Response<Model?>
@@ -206,7 +206,7 @@ namespace Server.Controller
                     StatusCode = 404,
                     Ok = false,
                     Data = null,
-                    Error = "Sparepart ID not found"
+                    Error = new { message = "Sparepart ID not found" }
                 });
             }
 
@@ -222,7 +222,7 @@ namespace Server.Controller
                     StatusCode = 404,
                     Ok = false,
                     Data = null,
-                    Error = "Sparepart ID not found"
+                    Error = new { message = "Sparepart ID not found" }
                 });
             }
             catch (Exception ex)
@@ -232,7 +232,7 @@ namespace Server.Controller
                     StatusCode = 500,
                     Ok = false,
                     Data = null,
-                    Error = ex.Message
+                    Error = new { message = ex.Message }
                 });
             }
             return Ok(new Response<Model?>

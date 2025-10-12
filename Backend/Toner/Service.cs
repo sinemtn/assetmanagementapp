@@ -1,6 +1,6 @@
-﻿using Npgsql;
+using Npgsql;
 
-namespace Printer;
+namespace Toner;
 
 public class Service
 {
@@ -11,22 +11,20 @@ public class Service
         _connString = connString ?? throw new ArgumentNullException(nameof(connString));
     }
 
-    public async Task CreatePrinter(Model model)
+    public async Task CreateToner(Model model)
     {
         string sql = @"
-            INSERT INTO ms_printer (printer_id, name, manufacture, category, toner, active) 
-            VALUES (@printerid, @name, @manufacture, @category, @toner, @active)
+            INSERT INTO ms_toner (toner_id, name, category, active) 
+            VALUES (@tonerid, @name, @category, @active)
         ";
         using NpgsqlConnection conn = new(_connString);
         using NpgsqlCommand cmd = new(sql, conn);
         try
         {
             await conn.OpenAsync();
-            cmd.Parameters.AddWithValue("@printerid", model.PrinterId);
+            cmd.Parameters.AddWithValue("@tonerid", model.TonerId);
             cmd.Parameters.AddWithValue("@name", model.Name);
-            cmd.Parameters.AddWithValue("@manufacture", model.Manufacture);
             cmd.Parameters.AddWithValue("@category", model.Category);
-            cmd.Parameters.AddWithValue("@toner", model.Toner);
             cmd.Parameters.AddWithValue("@active", model.Active);
             await cmd.ExecuteNonQueryAsync();
         }
@@ -36,12 +34,12 @@ public class Service
         }
     }
 
-    public async Task UpdatePrinter(string printerId, Model model)
+    public async Task UpdateToner(string tonerId, Model model)
     {
         string sql = @"
-            UPDATE ms_printer
-            SET name = @name, manufacture = @manufacture, category = @category, toner = @toner, active = @active
-            WHERE printer_id = @printerid
+            UPDATE ms_toner
+            SET name = @name, category = @category, active = @active
+            WHERE toner_id = @tonerid
         ";
         using NpgsqlConnection conn = new(_connString);
         using NpgsqlCommand cmd = new(sql, conn);
@@ -55,18 +53,16 @@ public class Service
             throw new Exception($"Database error: {ex.Message}");
         }
 
-        cmd.Parameters.AddWithValue("@printerid", printerId);
+        cmd.Parameters.AddWithValue("@tonerid", tonerId);
         cmd.Parameters.AddWithValue("@name", model.Name);
-        cmd.Parameters.AddWithValue("@manufacture", model.Manufacture);
         cmd.Parameters.AddWithValue("@category", model.Category);
-        cmd.Parameters.AddWithValue("@toner", model.Toner);
         cmd.Parameters.AddWithValue("@active", model.Active);
         try
         {
             var count = await cmd.ExecuteNonQueryAsync();
             if (count == 0)
             {
-                throw new Exception("No printer found");
+                throw new Exception("No toner found");
             }
         }
         catch (Exception ex)
@@ -75,9 +71,9 @@ public class Service
         }
     }
 
-    public async Task DeletePrinter(string printerId)
+    public async Task DeleteToner(string tonerId)
     {
-        string sql = "DELETE FROM ms_printer WHERE printer_id = @printerid";
+        string sql = "DELETE FROM ms_toner WHERE toner_id = @tonerid";
         using NpgsqlConnection conn = new(_connString);
         using NpgsqlCommand cmd = new(sql, conn);
         try
@@ -89,13 +85,13 @@ public class Service
             throw new Exception($"Database error: {ex.Message}");
         }
 
-        cmd.Parameters.AddWithValue("@printerid", printerId);
+        cmd.Parameters.AddWithValue("@tonerid", tonerId);
         try
         {
             var count = await cmd.ExecuteNonQueryAsync();
             if (count == 0)
             {
-                throw new Exception("No printer found");
+                throw new Exception("No toner found");
             }
         }
         catch (Exception ex)
@@ -105,10 +101,10 @@ public class Service
 
     }
 
-    public async Task<List<Model>> GetPrinters()
+    public async Task<List<Model>> GetToners()
     {
-        List<Model> printers = new();
-        string sql = "SELECT printer_id, name, manufacture, category, toner, active FROM ms_printer ORDER BY printer_id";
+        List<Model> toners = new();
+        string sql = "SELECT toner_id, name, category, active FROM ms_toner ORDER BY toner_id";
         using NpgsqlConnection conn = new(_connString);
         using NpgsqlCommand cmd = new(sql, conn);
         try
@@ -119,44 +115,40 @@ public class Service
             {
                 Model model = new()
                 {
-                    PrinterId = reader.GetString(0),
+                    TonerId = reader.GetString(0),
                     Name = reader.GetString(1),
-                    Manufacture = reader.GetString(2),
-                    Category = reader.GetString(3),
-                    Toner = reader.GetString(4),
-                    Active = reader.GetBoolean(5)
+                    Category = reader.GetString(2),
+                    Active = reader.GetBoolean(3)
                 };
-                printers.Add(model);
+                toners.Add(model);
             }
         }
         catch (Exception ex)
         {
             throw new Exception($"Database error: {ex.Message}");
         }
-        return printers;
+        return toners;
     }
 
-    public async Task<Model?> GetPrinterById(string printerId)
+    public async Task<Model?> GetTonerById(string tonerId)
     {
         Model? model = null;
-        string sql = "SELECT printer_id, name, manufacture, category, toner, active FROM ms_printer WHERE printer_id = @printerid";
+        string sql = "SELECT toner_id, name, category, active FROM ms_toner WHERE toner_id = @tonerid";
         using NpgsqlConnection conn = new(_connString);
         using NpgsqlCommand cmd = new(sql, conn);
         try
         {
             await conn.OpenAsync();
-            cmd.Parameters.AddWithValue("@printerid", printerId);
+            cmd.Parameters.AddWithValue("@tonerid", tonerId);
             using NpgsqlDataReader reader = await cmd.ExecuteReaderAsync();
             if (await reader.ReadAsync())
             {
                 model = new()
                 {
-                    PrinterId = reader.GetString(0),
+                    TonerId = reader.GetString(0),
                     Name = reader.GetString(1),
-                    Manufacture = reader.GetString(2),
-                    Category = reader.GetString(3),
-                    Toner = reader.GetString(4),
-                    Active = reader.GetBoolean(5)
+                    Category = reader.GetString(2),
+                    Active = reader.GetBoolean(3)
                 };
             }
         }

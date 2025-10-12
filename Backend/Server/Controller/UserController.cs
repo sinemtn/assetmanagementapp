@@ -9,7 +9,6 @@ namespace Server.Controller
         [HttpGet]
         public IActionResult GetUsers()
         {
-            // You can access user information from the authenticated context
             var username = User.Identity?.Name;
             var role = User.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value;
 

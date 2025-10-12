@@ -38,7 +38,7 @@ namespace Server.Controller
                     StatusCode = 500,
                     Ok = false,
                     Data = null,
-                    Error = ex.Message
+                    Error = new { message = ex.Message }
                 });
             }
         }
@@ -54,7 +54,7 @@ namespace Server.Controller
                     StatusCode = 404,
                     Ok = false,
                     Data = null,
-                    Error = "Printer ID not found"
+                    Error = new { message = "Printer ID not found" }
                 });
             }
             Service service = new(_connString);
@@ -69,7 +69,7 @@ namespace Server.Controller
                     StatusCode = 500,
                     Ok = false,
                     Data = null,
-                    Error = ex.Message
+                    Error = new { message = ex.Message }
                 });
             }
             if (printer == null)
@@ -79,7 +79,7 @@ namespace Server.Controller
                     StatusCode = 404,
                     Ok = false,
                     Data = null,
-                    Error = "Printer not found"
+                    Error = new { message = "Printer not found" }
                 });
             }
             return Ok(new Response<Model?>
@@ -104,7 +104,7 @@ namespace Server.Controller
                     StatusCode = 400,
                     Ok = false,
                     Data = null,
-                    Error = "Invalid printer data"
+                    Error = new { message = "Invalid printer data" }
                 });
             }
 
@@ -120,7 +120,7 @@ namespace Server.Controller
                     StatusCode = 409,
                     Ok = false,
                     Data = null,
-                    Error = "Printer with the same ID already exists"
+                    Error = new { message = "Printer with the same ID already exists" }
                 });
             }
             catch (Exception ex)
@@ -130,7 +130,7 @@ namespace Server.Controller
                     StatusCode = 500,
                     Ok = false,
                     Data = null,
-                    Error = ex.Message
+                    Error = new { message = ex.Message }
                 });
             }
             
@@ -157,7 +157,7 @@ namespace Server.Controller
                     StatusCode = 400,
                     Ok = false,
                     Data = null,
-                    Error = "Invalid printer data or ID"
+                    Error = new { message = "Invalid printer data or ID" }
                 });
             }
 
@@ -173,7 +173,7 @@ namespace Server.Controller
                     StatusCode = 404,
                     Ok = false,
                     Data = null,
-                    Error = "Printer ID not found"
+                    Error = new { message = "Printer ID not found" }
                 });
             }
             catch (Exception ex)
@@ -183,7 +183,7 @@ namespace Server.Controller
                     StatusCode = 500,
                     Ok = false,
                     Data = null,
-                    Error = ex.Message
+                    Error = new { message = ex.Message }
                 });
             }
             return Ok(new Response<Model?>
@@ -207,7 +207,7 @@ namespace Server.Controller
                     StatusCode = 404,
                     Ok = false,
                     Data = null,
-                    Error = "Printer ID not found"
+                    Error = new { message = "Printer ID not found" }
                 });
             }
 
@@ -223,7 +223,7 @@ namespace Server.Controller
                     StatusCode = 404,
                     Ok = false,
                     Data = null,
-                    Error = "Printer ID not found"
+                    Error = new { message = "Printer ID not found" }
                 });
             }
             catch (Exception ex)
@@ -233,7 +233,7 @@ namespace Server.Controller
                     StatusCode = 500,
                     Ok = false,
                     Data = null,
-                    Error = ex.Message
+                    Error = new { message = ex.Message }
                 });
             }
             return Ok(new Response<Model?>

@@ -39,7 +39,7 @@ namespace Server.Controller
                     StatusCode = 400,
                     Ok = false,
                     Data = null,
-                    Error = "Username or password invalid"
+                    Error = new { message = "Username or password invalid" }
                 });
             }
 
@@ -58,7 +58,7 @@ namespace Server.Controller
                         StatusCode = 401,
                         Ok = false,
                         Data = null,
-                        Error = "Authentication failed. Wrong username or password."
+                        Error = new { message = "Authentication failed. Wrong username or password." }
                     });
                 }
             }
@@ -69,7 +69,7 @@ namespace Server.Controller
                     StatusCode = 500,
                     Ok = false,
                     Data = null,
-                    Error = $"Database connection error. {ex.Message}"
+                    Error = new { message = $"Database connection error. {ex.Message}" }
                 });
             }
 

@@ -22,7 +22,7 @@ public class Service
         try
         {
             await conn.OpenAsync();
-            cmd.Parameters.AddWithValue("@sparepartid", model.SparepartID);
+            cmd.Parameters.AddWithValue("@sparepartid", model.SparepartId);
             cmd.Parameters.AddWithValue("@name", model.Name);
             cmd.Parameters.AddWithValue("@active", model.Active);
             await cmd.ExecuteNonQueryAsync();
@@ -113,7 +113,7 @@ public class Service
             {
                 Model model = new()
                 {
-                    SparepartID = reader.GetString(0),
+                    SparepartId = reader.GetString(0),
                     Name = reader.GetString(1),
                     Active = reader.GetBoolean(2)
                 };
@@ -142,7 +142,7 @@ public class Service
             {
                 model = new()
                 {
-                    SparepartID = reader.GetString(0),
+                    SparepartId = reader.GetString(0),
                     Name = reader.GetString(1),
                     Active = reader.GetBoolean(2)
                 };

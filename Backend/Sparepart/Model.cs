@@ -4,7 +4,7 @@ namespace Sparepart;
 public class Model
 {
     [JsonPropertyName("id")]
-    public required string SparepartID { get; set; }
+    public required string SparepartId { get; set; }
     [JsonPropertyName("name")]
     public required string Name { get; set; }
     [JsonPropertyName("active")]
