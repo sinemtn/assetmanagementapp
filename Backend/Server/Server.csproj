@@ -15,6 +15,7 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\Auth\Auth.csproj" />
 	  <ProjectReference Include="..\Printer\Printer.csproj" />
+	  <ProjectReference Include="..\Sparepart\Sparepart.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
