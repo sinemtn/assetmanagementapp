@@ -1,33 +1,33 @@
 using Microsoft.AspNetCore.Mvc;
-using Printer;
+using Customer;
 using Server.Response;
 
 namespace Server.Controller
 {
-    [Route("api/printer")]
+    [Route("api/customer")]
     [ApiController]
-    public class PrinterController : ControllerBase
+    public class CustomerController : ControllerBase
     {
         private readonly string _connString;
 
-        public PrinterController(IConfiguration configuration)
+        public CustomerController(IConfiguration configuration)
         {
             _connString = configuration.GetConnectionString("DefaultConnection") ??
                 throw new ArgumentNullException("Connection string 'DefaultConnection' not found.");
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetPrinters()
+        public async Task<IActionResult> GetUsers()
         {
             try
             {
                 Service service = new(_connString);
-                var printers = await service.GetPrinters();
+                var customers = await service.GetCustomers();
                 return Ok(new Response<List<Model>?>
                 {
                     StatusCode = 200,
                     Ok = true,
-                    Data = printers,
+                    Data = customers,
                     Error = null
                 });
             }
@@ -38,29 +38,35 @@ namespace Server.Controller
                     StatusCode = 500,
                     Ok = false,
                     Data = null,
-                    Error = new { message = ex.Message }
+                    Error = new 
+                    {
+                        message = ex.Message
+                    }
                 });
             }
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetPrinterById(string id)
+        public async Task<IActionResult> GetCustomerById(int id)
         {
-            Model? printer = null;
-             if (string.IsNullOrEmpty(id))
+            Model? customer = null;
+            if (id <= 0)
             {
                 return NotFound(new Response<Model?>
                 {
                     StatusCode = 404,
                     Ok = false,
                     Data = null,
-                    Error = new { message = "Printer ID not found" }
+                    Error = new
+                    {
+                        message = "Customer not found"
+                    }
                 });
             }
             Service service = new(_connString);
             try
             {
-                printer = await service.GetPrinterById(id);
+                customer = await service.GetCustomerById(id);
             }
             catch (Exception ex)
             {
@@ -69,34 +75,39 @@ namespace Server.Controller
                     StatusCode = 500,
                     Ok = false,
                     Data = null,
-                    Error = new { message = ex.Message }
+                    Error = new 
+                    {
+                        message = ex.Message
+                    }
                 });
             }
-            if (printer == null)
+            if (customer == null)
             {
                 return NotFound(new Response<Model?>
                 {
                     StatusCode = 404,
                     Ok = false,
                     Data = null,
-                    Error = new { message = "Printer not found" }
+                    Error = new 
+                    {
+                        message = "Customer not found"
+                    }
                 });
             }
             return Ok(new Response<Model?>
             {
                 StatusCode = 200,
                 Ok = true,
-                Data = printer,
+                Data = customer,
                 Error = null
             });
-            
+
         }
 
 
         [HttpPost]
-        public async Task<IActionResult> CreatePrinter([FromBody] Model model)
+        public async Task<IActionResult> CreateCustomer([FromBody] Model model)
         {
-
             if (model == null)
             {
                 return BadRequest(new Response<Model?>
@@ -104,14 +115,18 @@ namespace Server.Controller
                     StatusCode = 400,
                     Ok = false,
                     Data = null,
-                    Error = new { message = "Invalid printer data" }
+                    Error = new 
+                    {
+                        message = "Invalid customer data"
+                    }
                 });
             }
 
             Service service = new(_connString);
             try
             {
-                await service.CreatePrinter(model);
+                var id = await service.CreateCustomer(model);
+                model.CustomerId = id;
             }
             catch (Exception ex) when (ex.Message.Contains("duplicate key value"))
             {
@@ -120,7 +135,10 @@ namespace Server.Controller
                     StatusCode = 409,
                     Ok = false,
                     Data = null,
-                    Error = new { message = "Printer with the same ID already exists" }
+                    Error = new 
+                    {
+                        message = "Customer with the same ID already exists"
+                    }
                 });
             }
             catch (Exception ex)
@@ -134,7 +152,6 @@ namespace Server.Controller
                 });
             }
             
-
             return Ok(new Response<Model?>
             {
                 StatusCode = 201,
@@ -142,38 +159,45 @@ namespace Server.Controller
                 Data = model,
                 Error = null
             });
-            
+
 
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdatePrinter(string id, [FromBody] Model model)
+        public async Task<IActionResult> UpdateCustomer(int id, [FromBody] Model model)
         {
-            
-            if (model == null || string.IsNullOrEmpty(id))
+
+            if (model == null || id <= 0)
             {
                 return BadRequest(new Response<Model?>
                 {
                     StatusCode = 400,
                     Ok = false,
                     Data = null,
-                    Error = new { message = "Invalid printer data or ID" }
+                    Error = new
+                    {
+                        message = "Invalid customer data or ID"
+                    }
                 });
             }
 
             Service service = new(_connString);
             try
             {
-                await service.UpdatePrinter(id, model);
+                await service.UpdateCustomer(id, model);
+                model.CustomerId = id;
             }
-            catch (Exception ex) when (ex.Message.Contains("No printer found"))
+            catch (Exception ex) when (ex.Message.Contains("No customer found"))
             {
                 return NotFound(new Response<Model?>
                 {
                     StatusCode = 404,
                     Ok = false,
                     Data = null,
-                    Error = new { message = "Printer ID not found" }
+                    Error = new 
+                    {
+                        message = "Customer not found"
+                    }
                 });
             }
             catch (Exception ex)
@@ -193,37 +217,43 @@ namespace Server.Controller
                 Data = model,
                 Error = null
             });
-            
+
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeletePrinter(string id)
+        public async Task<IActionResult> DeleteCustomer(int id)
         {
-            
-            if (string.IsNullOrEmpty(id))
+
+            if (id <= 0)
             {
                 return NotFound(new Response<Model?>
                 {
                     StatusCode = 404,
                     Ok = false,
                     Data = null,
-                    Error = new { message = "Printer ID not found" }
+                    Error = new
+                    {
+                        message = "Customer not found"
+                    }
                 });
             }
 
             Service service = new(_connString);
             try
             {
-                await service.DeletePrinter(id);
+                await service.DeleteCustomer(id);
             }
-            catch (Exception ex) when (ex.Message.Contains("No printer found"))
+            catch (Exception ex) when (ex.Message.Contains("No customer found"))
             {
                 return NotFound(new Response<Model?>
                 {
                     StatusCode = 404,
                     Ok = false,
                     Data = null,
-                    Error = new { message = "Printer ID not found" }
+                    Error = new 
+                    {
+                        message = "Customer not found"
+                    }
                 });
             }
             catch (Exception ex)
@@ -243,7 +273,7 @@ namespace Server.Controller
                 Data = null,
                 Error = null
             });
-            
+
         }
     }
 }

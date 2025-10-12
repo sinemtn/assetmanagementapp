@@ -136,7 +136,7 @@ namespace Server.Controller
 
             return Ok(new Response<Model?>
             {
-                StatusCode = 200,
+                StatusCode = 201,
                 Ok = true,
                 Data = model,
                 Error = null

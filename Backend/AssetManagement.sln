@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Toner", "Toner\Toner.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "User", "User\User.csproj", "{EDF61386-7705-4D70-A112-3E47F6683432}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Customer", "Customer\Customer.csproj", "{4F5BCC7B-8F4E-4714-9D9C-D470B9FA5605}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,5 +50,9 @@ Global
 		{EDF61386-7705-4D70-A112-3E47F6683432}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EDF61386-7705-4D70-A112-3E47F6683432}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EDF61386-7705-4D70-A112-3E47F6683432}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F5BCC7B-8F4E-4714-9D9C-D470B9FA5605}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F5BCC7B-8F4E-4714-9D9C-D470B9FA5605}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F5BCC7B-8F4E-4714-9D9C-D470B9FA5605}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F5BCC7B-8F4E-4714-9D9C-D470B9FA5605}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
