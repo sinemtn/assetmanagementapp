@@ -12,11 +12,12 @@ namespace Server.Controller
             // You can access user information from the authenticated context
             var username = User.Identity?.Name;
             var role = User.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value;
-            
-            return Ok(new { 
-                Message = "Authenticated successfully", 
-                Username = username, 
-                Role = role 
+
+            return Ok(new
+            {
+                Message = "Authenticated successfully",
+                Username = username,
+                Role = role
             });
         }
 
@@ -28,6 +29,12 @@ namespace Server.Controller
 
         [HttpPut]
         public IActionResult UpdateUser()
+        {
+            return Ok();
+        }
+        
+        [HttpDelete]
+        public IActionResult DeleteUser()
         {
             return Ok();
         }

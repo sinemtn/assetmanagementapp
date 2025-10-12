@@ -14,5 +14,5 @@ public class Response<T>
     public T? Data { get; set; }
 
     [JsonPropertyName("error")]
-    public string? Error { get; set; }
+    public object? Error { get; set; }
 }

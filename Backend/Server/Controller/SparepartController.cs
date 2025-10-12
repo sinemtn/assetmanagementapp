@@ -23,5 +23,11 @@ namespace Server.Controller
         {
             return Ok();
         }
+
+        [HttpDelete]
+        public IActionResult DeleteSparepart()
+        {
+            return Ok();
+        }
     }
 }

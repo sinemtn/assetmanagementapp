@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using System.Text.Json.Serialization;
 using Server.Response;
-using Npgsql;
+using Auth;
 
 namespace Server.Controller
 {
@@ -43,24 +43,15 @@ namespace Server.Controller
                 });
             }
 
-         
+            // Extract username and password from request
             string username = request.Username;
             string password = request.Password;
 
-            string sql = "SELECT id, username, role FROM user WHERE username = @username and password = @password";
-
-            using NpgsqlConnection conn = new(_connString);
-            using NpgsqlCommand cmd = new(sql, conn);
-
             try
             {
-                conn.Open();
-                cmd.Parameters.AddWithValue("@username", username);
-                cmd.Parameters.AddWithValue("@password", password);
-
-                using NpgsqlDataReader reader = cmd.ExecuteReader();
-
-                if (!reader.HasRows)
+                Authentication auth = new(_connString);
+                bool isAuthenticated = auth.IsAuthenticated(username, password).Result;
+                if (!isAuthenticated)
                 {
                     return Unauthorized(new Response<string?>
                     {
@@ -70,26 +61,6 @@ namespace Server.Controller
                         Error = "Authentication failed. Wrong username or password."
                     });
                 }
-
-                reader.Read();
-
-                return Ok(new Response<object?>
-                {
-                    StatusCode = 200,
-                    Ok = true,
-                    Data = new
-                    {
-                        Menu = new
-                        {
-                            Setting = true,
-                            Activity = true,
-                            Stock = true,
-                            Log = true,
-                            Dashboard = true
-                        }
-                    },
-                    Error = null
-                });
             }
             catch (Exception ex)
             {
@@ -101,6 +72,14 @@ namespace Server.Controller
                     Error = $"Database connection error. {ex.Message}"
                 });
             }
+
+            return Ok(new Response<string?>
+            {
+                StatusCode = 200,
+                Ok = true,
+                Data = "Login successful",
+                Error = null
+            });
         }
 
         [HttpPost("logout")]
