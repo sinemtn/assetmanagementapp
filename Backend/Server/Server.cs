@@ -12,24 +12,30 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
 // override the default model state invalid response
+// builder.Services.Configure<ApiBehaviorOptions>(options =>
+// {
+//     options.InvalidModelStateResponseFactory = context =>
+//     {
+//         var errorMessages = context.ModelState
+//             .Where(ms => ms.Value?.Errors.Any() == true)
+//             .SelectMany(ms => ms.Value!.Errors)
+//             .Select(e => e.ErrorMessage ?? "Unknown error");
+//         var errorMessage = string.Join("; ", errorMessages);
+//         return new BadRequestObjectResult(new Response<object>
+//         {
+//             StatusCode = 400,
+//             Ok = false,
+//             Data = null,
+//             Error = errorMessage
+//         });
+//     };
+// });
+
 builder.Services.Configure<ApiBehaviorOptions>(options =>
 {
-    options.InvalidModelStateResponseFactory = context =>
-    {
-        var errorMessages = context.ModelState
-            .Where(ms => ms.Value?.Errors.Any() == true)
-            .SelectMany(ms => ms.Value!.Errors)
-            .Select(e => e.ErrorMessage ?? "Unknown error");
-        var errorMessage = string.Join("; ", errorMessages);
-        return new BadRequestObjectResult(new Response<object>
-        {
-            StatusCode = 400,
-            Ok = false,
-            Data = null,
-            Error = errorMessage
-        });
-    };
+    options.SuppressModelStateInvalidFilter = true;
 });
+
 
 builder.Services.AddCors(options =>
 {

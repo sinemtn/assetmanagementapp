@@ -17,6 +17,7 @@
 	  <ProjectReference Include="..\Printer\Printer.csproj" />
 	  <ProjectReference Include="..\Sparepart\Sparepart.csproj" />
 	  <ProjectReference Include="..\Toner\Toner.csproj" />
+	  <ProjectReference Include="..\User\User.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
