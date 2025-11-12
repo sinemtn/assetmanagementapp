@@ -1,33 +1,33 @@
 using Microsoft.AspNetCore.Mvc;
-using Printer;
+using StockPrinter;
 using Server.Response;
 
 namespace Server.Controller
 {
-    [Route("api/printer")]
+    [Route("api/stock/printer")]
     [ApiController]
-    public class PrinterController : ControllerBase
+    public class StockPrinterController : ControllerBase
     {
         private readonly string _connString;
 
-        public PrinterController(IConfiguration configuration)
+        public StockPrinterController(IConfiguration configuration)
         {
             _connString = configuration.GetConnectionString("DefaultConnection") ??
                 throw new ArgumentNullException("Connection string 'DefaultConnection' not found.");
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetPrinters()
+        public async Task<IActionResult> GetStockPrinters()
         {
             try
             {
                 Service service = new(_connString);
-                var printers = await service.GetPrinters();
+                var stockPrinters = await service.GetStockPrinters();
                 return Ok(new Response<List<Model>?>
                 {
                     StatusCode = 200,
                     Ok = true,
-                    Data = printers,
+                    Data = stockPrinters,
                     Error = null
                 });
             }
@@ -38,29 +38,35 @@ namespace Server.Controller
                     StatusCode = 500,
                     Ok = false,
                     Data = null,
-                    Error = new { message = ex.Message }
+                    Error = new 
+                    {
+                        message = ex.Message
+                    }
                 });
             }
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetPrinterById(string id)
+        public async Task<IActionResult> GetStockPrinterById(string id)
         {
-            Model? printer = null;
-             if (string.IsNullOrEmpty(id))
+            Model? stockPrinter = null;
+            if (string.IsNullOrEmpty(id))
             {
                 return NotFound(new Response<Model?>
                 {
                     StatusCode = 404,
                     Ok = false,
                     Data = null,
-                    Error = new { message = "Printer ID not found" }
+                    Error = new
+                    {
+                        message = "Stock printer not found"
+                    }
                 });
             }
             Service service = new(_connString);
             try
             {
-                printer = await service.GetPrinterById(id);
+                stockPrinter = await service.GetStockPrinterByMPNo(id);
             }
             catch (Exception ex)
             {
@@ -69,32 +75,38 @@ namespace Server.Controller
                     StatusCode = 500,
                     Ok = false,
                     Data = null,
-                    Error = new { message = ex.Message }
+                    Error = new 
+                    {
+                        message = ex.Message
+                    }
                 });
             }
-            if (printer == null)
+            if (stockPrinter == null)
             {
                 return NotFound(new Response<Model?>
                 {
                     StatusCode = 404,
                     Ok = false,
                     Data = null,
-                    Error = new { message = "Printer not found" }
+                    Error = new 
+                    {
+                        message = "Stock printer not found"
+                    }
                 });
             }
             return Ok(new Response<Model?>
             {
                 StatusCode = 200,
                 Ok = true,
-                Data = printer,
+                Data = stockPrinter,
                 Error = null
             });
-            
+
         }
 
 
         [HttpPost]
-        public async Task<IActionResult> CreatePrinter([FromBody] Model model)
+        public async Task<IActionResult> CreateStockPrinter([FromBody] Model model)
         {
 
             if (model == null)
@@ -104,14 +116,17 @@ namespace Server.Controller
                     StatusCode = 400,
                     Ok = false,
                     Data = null,
-                    Error = new { message = "Invalid printer data" }
+                    Error = new 
+                    {
+                        message = "Invalid stock printer data"
+                    }
                 });
             }
 
             Service service = new(_connString);
             try
             {
-                await service.CreatePrinter(model);
+                await service.CreateStockPrinter(model);
             }
             catch (Exception ex) when (ex.Message.Contains("duplicate key value"))
             {
@@ -120,7 +135,10 @@ namespace Server.Controller
                     StatusCode = 409,
                     Ok = false,
                     Data = null,
-                    Error = new { message = "Printer with the same ID already exists" }
+                    Error = new 
+                    {
+                        message = "Stock printer with the same ID already exists"
+                    }
                 });
             }
             catch (Exception ex)
@@ -134,7 +152,6 @@ namespace Server.Controller
                 });
             }
             
-
             return Ok(new Response<Model?>
             {
                 StatusCode = 201,
@@ -142,14 +159,14 @@ namespace Server.Controller
                 Data = model,
                 Error = null
             });
-            
+
 
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdatePrinter(string id, [FromBody] Model model)
+        public async Task<IActionResult> UpdateStockPrinter(string id, [FromBody] Model model)
         {
-            
+
             if (model == null || string.IsNullOrEmpty(id))
             {
                 return BadRequest(new Response<Model?>
@@ -157,23 +174,29 @@ namespace Server.Controller
                     StatusCode = 400,
                     Ok = false,
                     Data = null,
-                    Error = new { message = "Invalid printer data or ID" }
+                    Error = new
+                    {
+                        message = "Invalid stock printer data or ID"
+                    }
                 });
             }
 
             Service service = new(_connString);
             try
             {
-                await service.UpdatePrinter(id, model);
+                await service.UpdateStockPrinter(id, model);
             }
-            catch (Exception ex) when (ex.Message.Contains("No printer found"))
+            catch (Exception ex) when (ex.Message.Contains("No stock printer found"))
             {
                 return NotFound(new Response<Model?>
                 {
                     StatusCode = 404,
                     Ok = false,
                     Data = null,
-                    Error = new { message = "Printer ID not found" }
+                    Error = new 
+                    {
+                        message = "Stock printer not found"
+                    }
                 });
             }
             catch (Exception ex)
@@ -193,13 +216,13 @@ namespace Server.Controller
                 Data = model,
                 Error = null
             });
-            
+
         }
 
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeletePrinter(string id)
+        [HttpPatch("{id}")]
+        public async Task<IActionResult> DisableStockPrinter(string id)
         {
-            
+
             if (string.IsNullOrEmpty(id))
             {
                 return NotFound(new Response<Model?>
@@ -207,23 +230,29 @@ namespace Server.Controller
                     StatusCode = 404,
                     Ok = false,
                     Data = null,
-                    Error = new { message = "Printer ID not found" }
+                    Error = new
+                    {
+                        message = "Stock printer not found"
+                    }
                 });
             }
 
             Service service = new(_connString);
             try
             {
-                await service.DeletePrinter(id);
+                await service.DisableStockPrinter(id);
             }
-            catch (Exception ex) when (ex.Message.Contains("No printer found"))
+            catch (Exception ex) when (ex.Message.Contains("No stock printer found"))
             {
                 return NotFound(new Response<Model?>
                 {
                     StatusCode = 404,
                     Ok = false,
                     Data = null,
-                    Error = new { message = "Printer ID not found" }
+                    Error = new 
+                    {
+                        message = "Stock printer not found"
+                    }
                 });
             }
             catch (Exception ex)
@@ -240,10 +269,10 @@ namespace Server.Controller
             {
                 StatusCode = 200,
                 Ok = true,
-                Data = "Delete successful",
+                Data = "Patching successful",
                 Error = null
             });
-            
+
         }
     }
 }

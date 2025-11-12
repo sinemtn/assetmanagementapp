@@ -266,11 +266,11 @@ namespace Server.Controller
                     Error = new { message = ex.Message }
                 });
             }
-            return Ok(new Response<Model?>
+            return Ok(new Response<string?>
             {
                 StatusCode = 200,
                 Ok = true,
-                Data = null,
+                Data = "Delete successful",
                 Error = null
             });
 

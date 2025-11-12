@@ -16,6 +16,7 @@
 	  <ProjectReference Include="..\Auth\Auth.csproj" />
 	  <ProjectReference Include="..\Printer\Printer.csproj" />
 	  <ProjectReference Include="..\Sparepart\Sparepart.csproj" />
+	  <ProjectReference Include="..\StockPrinter\StockPrinter.csproj" />
 	  <ProjectReference Include="..\Toner\Toner.csproj" />
 	  <ProjectReference Include="..\User\User.csproj" />
 	  <ProjectReference Include="..\Customer\Customer.csproj" />
