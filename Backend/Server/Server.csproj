@@ -20,6 +20,7 @@
 	  <ProjectReference Include="..\Toner\Toner.csproj" />
 	  <ProjectReference Include="..\User\User.csproj" />
 	  <ProjectReference Include="..\Customer\Customer.csproj" />
+	  <ProjectReference Include="..\StockToner\StockToner.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -17,17 +17,26 @@ namespace Server.Controller
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetStockPrinters()
+        public async Task<IActionResult> GetStockPrinters([FromQuery] int page = 1, [FromQuery] int pageSize = 10)
         {
             try
             {
                 Service service = new(_connString);
-                var stockPrinters = await service.GetStockPrinters();
+                var (stockPrinters, totalCount) = await service.GetStockPrinters(page, pageSize);
+                
+                var pagination = new Pagination
+                {
+                    CurrentPage = page,
+                    PageSize = pageSize,
+                    TotalItems = totalCount
+                };
+
                 return Ok(new Response<List<Model>?>
                 {
                     StatusCode = 200,
                     Ok = true,
                     Data = stockPrinters,
+                    Pagination = pagination,
                     Error = null
                 });
             }
@@ -126,7 +135,7 @@ namespace Server.Controller
             Service service = new(_connString);
             try
             {
-                await service.CreateStockPrinter(model);
+                model = await service.CreateStockPrinter(model);
             }
             catch (Exception ex) when (ex.Message.Contains("duplicate key value"))
             {
@@ -184,7 +193,7 @@ namespace Server.Controller
             Service service = new(_connString);
             try
             {
-                await service.UpdateStockPrinter(id, model);
+                model = await service.UpdateStockPrinter(id, model);
             }
             catch (Exception ex) when (ex.Message.Contains("No stock printer found"))
             {

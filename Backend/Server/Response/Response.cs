@@ -13,6 +13,9 @@ public class Response<T>
     [JsonPropertyName("data")]
     public T? Data { get; set; }
 
+    [JsonPropertyName("pagination")]
+    public Pagination? Pagination { get; set; }
+
     [JsonPropertyName("error")]
     public object? Error { get; set; }
 }

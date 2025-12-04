@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Customer", "Customer\Custom
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockPrinter", "StockPrinter\StockPrinter.csproj", "{B90AF355-9008-4D44-8FAC-E8944F1301DA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockToner", "StockToner\StockToner.csproj", "{544DC9D7-8D15-49C8-8E15-40F083A490B8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -60,5 +62,9 @@ Global
 		{B90AF355-9008-4D44-8FAC-E8944F1301DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B90AF355-9008-4D44-8FAC-E8944F1301DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B90AF355-9008-4D44-8FAC-E8944F1301DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{544DC9D7-8D15-49C8-8E15-40F083A490B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{544DC9D7-8D15-49C8-8E15-40F083A490B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{544DC9D7-8D15-49C8-8E15-40F083A490B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{544DC9D7-8D15-49C8-8E15-40F083A490B8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
