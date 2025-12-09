@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Content Include="wwwroot\**">
+			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+		</Content>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Auth\Auth.csproj" />
+	  <ProjectReference Include="..\Printer\Printer.csproj" />
+	  <ProjectReference Include="..\Sparepart\Sparepart.csproj" />
+	  <ProjectReference Include="..\StockPrinter\StockPrinter.csproj" />
+	  <ProjectReference Include="..\Toner\Toner.csproj" />
+	  <ProjectReference Include="..\User\User.csproj" />
+	  <ProjectReference Include="..\Customer\Customer.csproj" />
+	  <ProjectReference Include="..\StockToner\StockToner.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.8" />
+		<PackageReference Include="Npgsql" Version="9.0.3" />
+		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.14.0" />
+	</ItemGroup>
+
+</Project>
