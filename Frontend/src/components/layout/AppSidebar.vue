@@ -272,7 +272,7 @@ const menuGroups = [
       {
         name: "Settings",
         icon: SettingsIcon,
-        path: "/setup",  
+        path: "/settings",  
       },
       {
         name: "Audit Trail",

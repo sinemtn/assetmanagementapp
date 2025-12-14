@@ -180,53 +180,37 @@ const router = createRouter({
 
 
     {
-      path: '/setup',
-      name: 'Setup',
+      path: '/settings',
+      name: 'Settings',
       component: () => import('../views/Setup/Index.vue'),
       meta: {
-        title: 'Setup',
+        title: 'Settings',
       },
     },
+
     {
-      path: '/setup/printer',
-      name: 'Setup Printer',
-      component: () => import('../views/Setup/Printer.vue'),
+      path: '/settings/masterdata',
+      name: 'Master Data',
+      component: () => import('../views/Setup/masterdata/Index.vue'),
       meta: {
-        title: 'Setup Printer',
+        title: 'Master Data',
       },
     },
+
     {
-      path: '/setup/customer',
-      name: 'Setup Customer',
-      component: () => import('../views/Setup/Customer.vue'),
+      path: '/settings/masterdata/customers',
+      name: 'Master Data Customer',
+      component: () => import('../views/Setup/masterdata/customer/Index.vue'),
       meta: {
-        title: 'Setup Customer',
+        title: 'Master Data Customer',
       },
     },
-    {
-      path: '/setup/sparepart',
-      name: 'Setup Sparepart',
-      component: () => import('../views/Setup/Sparepart.vue'),
-      meta: {
-        title: 'Setup Sparepart',
-      },
-    },
-    {
-      path: '/setup/toner',
-      name: 'Setup Toner',
-      component: () => import('../views/Setup/Toner.vue'),
-      meta: {
-        title: 'Setup Toner',
-      },
-    },
-    {
-      path: '/setup/user',
-      name: 'Setup User',
-      component: () => import('../views/Setup/User.vue'),
-      meta: {
-        title: 'Setup User',
-      },
-    },
+
+
+
+  
+
+
     {
       path: '/calendar',
       name: 'Calendar',

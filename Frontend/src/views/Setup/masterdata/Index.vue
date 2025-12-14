@@ -13,7 +13,6 @@
 import { ref } from "vue";
 import PageBreadcrumb from "@/components/common/PageBreadcrumb.vue";
 import AdminLayout from "@/components/layout/AdminLayout.vue";
-import ComponentCard from "@/components/common/ComponentCard.vue";
-import Index from "@/components/setup/Index.vue";
-const currentPageTitle = ref("Settings");
+import Index from "@/components/setup/masterdata/Index.vue";
+const currentPageTitle = ref("Master Data");
 </script>
