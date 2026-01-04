@@ -1,25 +1,27 @@
 <template>
   <div class="col-span-2 ">
+
     <div class="flex mb-4 gap-6">
-    <!-- NO. MP -->
+
       <div class="w-1/2">
       <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
         Customer
     </label>
+
     <div class="relative w-full mb-4">
     <!-- Input field -->
     <input
-        v-model="tipeprinter"
+        v-model="caricustomer"
         type="text"
         placeholder="Cari Customer"
         class="h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 pr-10 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30"
-        @keydown.enter="searchTipePrinter"
+        @keydown.enter="searchCustomer"
     />
 
     <!-- Search button -->
     <button
         type="button"
-        @click="toggleSearchTipePrinter"
+        @click="toggleSearchCustomer"
         class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-brand-600"
     >
         <svg
@@ -39,24 +41,24 @@
     </button>
 
     <div
-        v-if="showTipePrinter"
+        v-if="showCariCustomer"
         class="absolute left-0 z-50 mt-1 w-full max-h-48 overflow-auto rounded-md border border-gray-200 bg-white shadow-md dark:border-gray-700 dark:bg-gray-800"
     >
         <ul>
         <li
-            v-for="(item, index) in filteredTipePrinters"
+            v-for="(item, index) in filteredCariCustomers"
             :key="index"
-            @click="selectTipePrinter(item)"
+            @click="selectCustomer(item)"
             class="cursor-pointer px-3 py-2 text-sm text-gray-800 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
         >
             {{ item }}
         </li>
 
         <li
-            v-if="filteredTipePrinters.length === 0"
+            v-if="filteredCariCustomers.length === 0"
             class="px-3 py-2 text-sm text-gray-500 dark:text-gray-400"
         >
-            Tipe Printer Tidak Ditemukan
+            Customer Tidak Ditemukan
         </li>
         </ul>
     </div>
@@ -183,7 +185,7 @@
  
     <div class="flex items-center gap-3 px-2 mt-6 lg:justify-start w-full">
         <button
-        @click="isPlusSparepart = false"
+        @click="goBack"
         type="button"
         class="flex w-full justify-center rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/[0.03] sm:w-auto"
         >
@@ -202,6 +204,45 @@
 
 <script setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+
+// Go Back
+const router = useRouter()
+const goBack = () => {
+    router.back()
+}
+
+// Cari Customer
+const caricustomer = ref('')
+const showCariCustomer = ref(false)
+const filteredCariCustomers = ref([])
+
+const caricustomers = ref([
+  'Tah Sung Hung',
+  'Venus Dhammiko',
+  'Ardhito Pramono Anung',
+  
+])
+
+const searchCustomer = () => {
+  filteredCariCustomers.value = caricustomers.value.filter(c =>
+    c.toLowerCase().includes(caricustomer.value.toLowerCase())
+  )
+  showCariCustomer.value = true
+}
+
+
+const toggleSearchCustomer = () => {
+  showCariCustomer.value = !showCariCustomer.value
+  if (showCariCustomer.value) searchCustomer()
+}
+
+const selectCustomer = (name) => {
+  caricustomer.value = name
+  showCariCustomer.value = false
+}
+
+
 
 const tipeprinter = ref('')
 const showTipePrinter = ref(false)
@@ -231,23 +272,6 @@ const selectTipePrinter = (name) => {
 }
 
 
-
-const searchCustomer = () => {
-  filteredCustomers.value = customers.value.filter(c =>
-    c.toLowerCase().includes(customer.value.toLowerCase())
-  )
-  showCustomerList.value = true
-}
-
-const toggleSearch = () => {
-  showCustomerList.value = !showCustomerList.value
-  if (showCustomerList.value) searchCustomer()
-}
-
-const selectCustomer = (name) => {
-  customer.value = name
-  showCustomerList.value = false
-}
 
 
 const PIC = ref('')
