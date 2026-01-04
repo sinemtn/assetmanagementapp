@@ -75,6 +75,35 @@ const router = createRouter({
       },
     },
 
+  // Surat Tugas
+    {
+      path: '/surattugas',
+      name: 'Surat Tugas',
+      component: () => import('../views/SuratTugas/Index.vue'),
+      meta: {
+        title: 'Surat Tugas',
+      },
+    },
+
+    {
+      path: '/surattugas-detail',
+      name: 'Surat Tugas Detail',
+      component: () => import('../views/SuratTugas/Detail.vue'),
+      meta: {
+        title: 'Surat Tugas Detail',
+      },
+    },   
+    
+    {
+      path: '/surattugas/tambah',
+      name: 'Tambah Surat Tugas',
+      component: () => import('../views/SuratTugas/Tambah.vue'),
+      meta: {
+        title: 'Tambah Surat Tugas',
+      },
+    }, 
+
+
 
 
 
@@ -121,32 +150,7 @@ const router = createRouter({
 
 
 
-    {
-      path: '/surattugas',
-      name: 'Surat Tugas',
-      component: () => import('../views/SuratTugas/Index.vue'),
-      meta: {
-        title: 'Surat Tugas',
-      },
-    },
-
-    {
-      path: '/surattugas-detail',
-      name: 'Surat Tugas Detail',
-      component: () => import('../views/SuratTugas/Detail.vue'),
-      meta: {
-        title: 'Surat Tugas Detail',
-      },
-    },   
     
-    {
-      path: '/surattugas/tambah',
-      name: 'Tambah Surat Tugas',
-      component: () => import('../views/SuratTugas/Tambah.vue'),
-      meta: {
-        title: 'Tambah Surat Tugas',
-      },
-    }, 
 
 
     {

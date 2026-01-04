@@ -370,7 +370,7 @@
           </tr>
         </thead>
         <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
-          <tr v-for="(stocktoner, index) in stocktoners" :key="stocktoner.toner"
+          <tr v-for="(stocktoner, index) in paginatedData" :key="stocktoner.toner"
             class="border-t border-gray-100 dark:border-gray-800">
             <td class="px-5 py-4 sm:px-6">
               <p class="text-gray-500 text-theme-sm dark:text-gray-400">{{ stocktoner.toner }}</p>
@@ -396,12 +396,24 @@
           </tr>
         </tbody>
       </table>
+      <div class="flex justify-end items-center gap-2 p-4">
+        <button class="px-3 py-1 rounded border" :disabled="currentPage === 1" @click="currentPage--">
+          < Prev </button>
+
+            <span class="text-sm">
+              Page {{ currentPage }} of {{ totalPages }}
+            </span>
+
+            <button class="px-3 py-1 rounded border" :disabled="currentPage === totalPages" @click="currentPage++">
+              Next >
+            </button>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import axios from 'axios';
 import {
   EditIcon,
@@ -451,4 +463,17 @@ const AdvancedFilter = () => {
   console.log('Filter Opened')
   isAdvancedFilter.value = true
 }
+
+// Pagination
+const currentPage = ref(1);
+const itemsPerPage = ref(5);
+
+const paginatedData = computed(() => {
+  const start = (currentPage.value - 1) * itemsPerPage.value;
+  return stocktoners.value.slice(start, start + itemsPerPage.value);
+});
+
+const totalPages = computed(() => {
+  return Math.ceil(stocktoners.value.length / itemsPerPage.value);
+});
 </script>

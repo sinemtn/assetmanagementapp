@@ -1,12 +1,10 @@
 <template>
 
   <div>
-
     <div class="flex justify-between">
 
       <form>
         <div class="flex gap-2 items-center">
-
           <div class="relative">
             <button class="absolute -translate-y-1/2 left-4 top-1/2">
               <svg class="fill-gray-500 dark:fill-gray-400" width="20" height="20" viewBox="0 0 20 20" fill="none"
@@ -47,7 +45,7 @@
                 </button>
                 <div class="px-2 pr-14">
                   <h4 class="mb-2 text-2xl font-semibold text-gray-800 dark:text-white/90">
-                    Filter Pencarian Printer
+                    Filter Pencarian Surat Tugas
                   </h4>
                 </div>
                 <form class="flex flex-col">
@@ -55,47 +53,52 @@
                     <div>
                       <div class="grid grid-cols-1 gap-x-6 gap-y-3 lg:grid-cols-2">
 
-
-                        <!-- Kategori Advanced Filter -->
                         <div class="col-span-2">
                           <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
-                            Kategori
+                            No Komplain
+                          </label>
+                          <input type="text" value=""
+                            class="dark:bg-dark-900 h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800" />
+                        </div>
+           
+                        <div class="col-span-2">
+                          <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
+                            Customer
                           </label>
                           <input type="text" value=""
                             class="dark:bg-dark-900 h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800" />
                         </div>
 
-                        <!-- MP. No Advanced Filter -->
                         <div class="col-span-2">
                           <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
-                            MP. No
+                            Tipe
+                          </label>
+                          <select
+                            class="dark:bg-dark-900 h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:focus:border-brand-800">
+                            <option value="">Maintenance</option>
+                            <option value="">Non Maintenance</option>
+                          </select>
+                        </div>
+
+                        <div class="col-span-2">
+                          <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
+                            PIC
                           </label>
                           <input type="text" value=""
                             class="dark:bg-dark-900 h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800" />
                         </div>
+                      </div>
 
-                        <!-- Status Advanced Filter -->
                         <div class="col-span-2">
                           <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
                             Status
                           </label>
                           <select
                             class="dark:bg-dark-900 h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:focus:border-brand-800">
-                            <option value="">Kontrak</option>
-                            <option value="">Ready</option>
-                            <option value="">Kontrak BUP</option>
+                            <option value="">Solved</option>
+                            <option value="">On Progress</option>
                           </select>
                         </div>
-
-                        <!-- Lokasi Advanced Filter -->
-                        <div class="col-span-2">
-                          <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
-                            Lokasi
-                          </label>
-                          <input type="text" value=""
-                            class="dark:bg-dark-900 h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800" />
-                        </div>
-                      </div>
 
                       <div class="flex items-center gap-3 px-2 mt-6 lg:justify-end">
                         <button @click="isAdvancedFilter = false" type="button"
@@ -114,318 +117,227 @@
               </div>
             </template>
           </Modal>
-
-
         </div>
       </form>
-      
-      <div class="rounded-xl border border-gray-200 bg-white p-3 dark:border-gray-800 dark:bg-white/[0.03] md:p-4 hover:shadow-sm transition">
+
+      <div
+        class="rounded-xl border border-gray-200 bg-white p-3 dark:border-gray-800 dark:bg-white/[0.03] md:p-4 hover:shadow-sm transition">
         <router-link to="/surattugas/tambah" class="block">
-              <span class="flex items-center gap-2">
-              <PlusIcon/>
-                Tambah
-                </span>
+          <span class="flex items-center gap-2">
+            <PlusIcon />
+            Tambah
+          </span>
         </router-link>
       </div>
 
     </div>
   </div>
 
-    <Modal v-if="isProfileInfoModal" @close="isProfileInfoModal = false">
-      <template #body>
-        <div
-          class="no-scrollbar relative w-full max-w-[700px] overflow-y-auto rounded-3xl bg-white p-4 dark:bg-gray-900 lg:p-11"
-        >
-          <!-- close btn -->
-          <button
-            @click="isProfileInfoModal = false"
-            class="transition-color absolute right-5 top-5 z-999 flex h-11 w-11 items-center justify-center rounded-full bg-gray-100 text-gray-400 hover:bg-gray-200 hover:text-gray-600 dark:bg-gray-700 dark:bg-white/[0.05] dark:text-gray-400 dark:hover:bg-white/[0.07] dark:hover:text-gray-300"
-          >
-            <svg
-              class="fill-current"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
-                d="M6.04289 16.5418C5.65237 16.9323 5.65237 17.5655 6.04289 17.956C6.43342 18.3465 7.06658 18.3465 7.45711 17.956L11.9987 13.4144L16.5408 17.9565C16.9313 18.347 17.5645 18.347 17.955 17.9565C18.3455 17.566 18.3455 16.9328 17.955 16.5423L13.4129 12.0002L17.955 7.45808C18.3455 7.06756 18.3455 6.43439 17.955 6.04387C17.5645 5.65335 16.9313 5.65335 16.5408 6.04387L11.9987 10.586L7.45711 6.04439C7.06658 5.65386 6.43342 5.65386 6.04289 6.04439C5.65237 6.43491 5.65237 7.06808 6.04289 7.4586L10.5845 12.0002L6.04289 16.5418Z"
-                fill=""
-              />
-            </svg>
-          </button>
-          <div class="px-2 pr-14">
-            <h4 class="mb-2 text-2xl font-semibold text-gray-800 dark:text-white/90">
-              Create Printer
-            </h4>
-            <p class="mb-6 text-sm text-gray-500 dark:text-gray-400 lg:mb-7">
-              Create New Printer for Asset Management Multiprint
-            </p>
-          </div>
-          <form class="flex flex-col">
-            <div class="custom-scrollbar h-[458px] overflow-y-auto p-2">
-              <div>
+  <Modal v-if="isProfileInfoModal" @close="isProfileInfoModal = false">
+    <template #body>
+      <div
+        class="no-scrollbar relative w-full max-w-[700px] overflow-y-auto rounded-3xl bg-white p-4 dark:bg-gray-900 lg:p-11">
+        <!-- close btn -->
+        <button @click="isProfileInfoModal = false"
+          class="transition-color absolute right-5 top-5 z-999 flex h-11 w-11 items-center justify-center rounded-full bg-gray-100 text-gray-400 hover:bg-gray-200 hover:text-gray-600 dark:bg-gray-700 dark:bg-white/[0.05] dark:text-gray-400 dark:hover:bg-white/[0.07] dark:hover:text-gray-300">
+          <svg class="fill-current" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M6.04289 16.5418C5.65237 16.9323 5.65237 17.5655 6.04289 17.956C6.43342 18.3465 7.06658 18.3465 7.45711 17.956L11.9987 13.4144L16.5408 17.9565C16.9313 18.347 17.5645 18.347 17.955 17.9565C18.3455 17.566 18.3455 16.9328 17.955 16.5423L13.4129 12.0002L17.955 7.45808C18.3455 7.06756 18.3455 6.43439 17.955 6.04387C17.5645 5.65335 16.9313 5.65335 16.5408 6.04387L11.9987 10.586L7.45711 6.04439C7.06658 5.65386 6.43342 5.65386 6.04289 6.04439C5.65237 6.43491 5.65237 7.06808 6.04289 7.4586L10.5845 12.0002L6.04289 16.5418Z"
+              fill="" />
+          </svg>
+        </button>
+        <div class="px-2 pr-14">
+          <h4 class="mb-2 text-2xl font-semibold text-gray-800 dark:text-white/90">
+            Create Printer
+          </h4>
+          <p class="mb-6 text-sm text-gray-500 dark:text-gray-400 lg:mb-7">
+            Create New Printer for Asset Management Multiprint
+          </p>
+        </div>
+        <form class="flex flex-col">
+          <div class="custom-scrollbar h-[458px] overflow-y-auto p-2">
+            <div>
 
-                <div class="grid grid-cols-1 gap-x-6 gap-y-5 lg:grid-cols-2">
-                  <div class="col-span-2 lg:col-span-1">
-                    <label
-                      class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400"
-                    >
-                      Type
-                    </label>
-                    <input
-                      type="text"
-                      value=""
-                      class="dark:bg-dark-900 h-11 w-full rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800"
-                    />
-                  </div>
+              <div class="grid grid-cols-1 gap-x-6 gap-y-5 lg:grid-cols-2">
+                <div class="col-span-2 lg:col-span-1">
+                  <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
+                    Type
+                  </label>
+                  <input type="text" value=""
+                    class="dark:bg-dark-900 h-11 w-full rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800" />
+                </div>
 
-                  <div class="col-span-2 lg:col-span-1">
-                    <label
-                      class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400"
-                    >
-                      MP.No
-                    </label>
-                    <input
-                      type="text"
-                      value=""
-                      class="dark:bg-dark-900 h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800"
-                    />
-                  </div>
+                <div class="col-span-2 lg:col-span-1">
+                  <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
+                    MP.No
+                  </label>
+                  <input type="text" value=""
+                    class="dark:bg-dark-900 h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800" />
+                </div>
 
-                  <div class="col-span-2">
-                    <label
-                      class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400"
-                    >
-                      MP.No
-                    </label>
-                    <input
-                      type="text"
-                      value=""
-                      class="dark:bg-dark-900 h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800"
-                    />
-                  </div>
+                <div class="col-span-2">
+                  <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
+                    MP.No
+                  </label>
+                  <input type="text" value=""
+                    class="dark:bg-dark-900 h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800" />
+                </div>
 
-                
 
-                  <div class="col-span-2">
-                    <label
-                      class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400"
-                    >
-                      Status
-                    </label>
-                      <select
-                      class="dark:bg-dark-900 h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:focus:border-brand-800"
-                    >
-                      <option value="team-manager">Contract</option>
-                      <option value="developer">Free</option>
-                    </select>
-                  </div>
+
+                <div class="col-span-2">
+                  <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
+                    Status
+                  </label>
+                  <select
+                    class="dark:bg-dark-900 h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:focus:border-brand-800">
+                    <option value="team-manager">Contract</option>
+                    <option value="developer">Free</option>
+                  </select>
                 </div>
               </div>
             </div>
-            <div class="flex items-center gap-3 px-2 mt-6 lg:justify-end">
-              <button
-                @click="isProfileInfoModal = false"
-                type="button"
-                class="flex w-full justify-center rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/[0.03] sm:w-auto"
-              >
-                Batal
-              </button>
-              <button
-                @click="saveProfile"
-                type="button"
-                class="flex w-full justify-center rounded-lg bg-brand-500 px-4 py-2.5 text-sm font-medium text-white hover:bg-brand-600 sm:w-auto"
-              >
-                Simpan
-              </button>
-            </div>
-          </form>
-        </div>
-      </template>
-    </Modal>
-
-
-    <Modal v-if="isEditStockPrinter" @close="isEditStockPrinter = false">
-      <template #body>
-        <div
-          class="no-scrollbar relative w-full max-w-[700px] overflow-y-auto rounded-3xl bg-white p-4 dark:bg-gray-900 lg:p-11"
-        >
-          <!-- close btn -->
-          <button
-            @click="isEditStockPrinter = false"
-            class="transition-color absolute right-5 top-5 z-999 flex h-11 w-11 items-center justify-center rounded-full bg-gray-100 text-gray-400 hover:bg-gray-200 hover:text-gray-600 dark:bg-gray-700 dark:bg-white/[0.05] dark:text-gray-400 dark:hover:bg-white/[0.07] dark:hover:text-gray-300"
-          >
-            <svg
-              class="fill-current"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
-                d="M6.04289 16.5418C5.65237 16.9323 5.65237 17.5655 6.04289 17.956C6.43342 18.3465 7.06658 18.3465 7.45711 17.956L11.9987 13.4144L16.5408 17.9565C16.9313 18.347 17.5645 18.347 17.955 17.9565C18.3455 17.566 18.3455 16.9328 17.955 16.5423L13.4129 12.0002L17.955 7.45808C18.3455 7.06756 18.3455 6.43439 17.955 6.04387C17.5645 5.65335 16.9313 5.65335 16.5408 6.04387L11.9987 10.586L7.45711 6.04439C7.06658 5.65386 6.43342 5.65386 6.04289 6.04439C5.65237 6.43491 5.65237 7.06808 6.04289 7.4586L10.5845 12.0002L6.04289 16.5418Z"
-                fill=""
-              />
-            </svg>
-          </button>
-          <div class="px-2 pr-14">
-            <h4 class="mb-2 text-2xl font-semibold text-gray-800 dark:text-white/90">
-              Edit Stock Printer
-            </h4>
-            <p class="mb-6 text-sm text-gray-500 dark:text-gray-400 lg:mb-7">
-              Edit Stock Printer for Asset Management Multiprint
-            </p>
           </div>
-          <form class="flex flex-col">
-            <div class="custom-scrollbar h-[458px] overflow-y-auto p-2">
-              <div>
+          <div class="flex items-center gap-3 px-2 mt-6 lg:justify-end">
+            <button @click="isProfileInfoModal = false" type="button"
+              class="flex w-full justify-center rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/[0.03] sm:w-auto">
+              Batal
+            </button>
+            <button @click="saveProfile" type="button"
+              class="flex w-full justify-center rounded-lg bg-brand-500 px-4 py-2.5 text-sm font-medium text-white hover:bg-brand-600 sm:w-auto">
+              Simpan
+            </button>
+          </div>
+        </form>
+      </div>
+    </template>
+  </Modal>
 
-                <div class="grid grid-cols-1 gap-x-6 gap-y-5 lg:grid-cols-2">
-                  <div class="col-span-2 lg:col-span-1">
-                    <label
-                      class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400"
-                    >
-                      Type
-                    </label>
-                    <input
-                      type="text"
-                      value=""
-                      class="dark:bg-dark-900 h-11 w-full rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800"
-                    />
-                  </div>
 
-                  <div class="col-span-2 lg:col-span-1">
-                    <label
-                      class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400"
-                    >
-                      MP.No
-                    </label>
-                    <input
-                      type="text"
-                      value=""
-                      class="dark:bg-dark-900 h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800"
-                    />
-                  </div>
+  <Modal v-if="isEditStockPrinter" @close="isEditStockPrinter = false">
+    <template #body>
+      <div
+        class="no-scrollbar relative w-full max-w-[700px] overflow-y-auto rounded-3xl bg-white p-4 dark:bg-gray-900 lg:p-11">
+        <!-- close btn -->
+        <button @click="isEditStockPrinter = false"
+          class="transition-color absolute right-5 top-5 z-999 flex h-11 w-11 items-center justify-center rounded-full bg-gray-100 text-gray-400 hover:bg-gray-200 hover:text-gray-600 dark:bg-gray-700 dark:bg-white/[0.05] dark:text-gray-400 dark:hover:bg-white/[0.07] dark:hover:text-gray-300">
+          <svg class="fill-current" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M6.04289 16.5418C5.65237 16.9323 5.65237 17.5655 6.04289 17.956C6.43342 18.3465 7.06658 18.3465 7.45711 17.956L11.9987 13.4144L16.5408 17.9565C16.9313 18.347 17.5645 18.347 17.955 17.9565C18.3455 17.566 18.3455 16.9328 17.955 16.5423L13.4129 12.0002L17.955 7.45808C18.3455 7.06756 18.3455 6.43439 17.955 6.04387C17.5645 5.65335 16.9313 5.65335 16.5408 6.04387L11.9987 10.586L7.45711 6.04439C7.06658 5.65386 6.43342 5.65386 6.04289 6.04439C5.65237 6.43491 5.65237 7.06808 6.04289 7.4586L10.5845 12.0002L6.04289 16.5418Z"
+              fill="" />
+          </svg>
+        </button>
+        <div class="px-2 pr-14">
+          <h4 class="mb-2 text-2xl font-semibold text-gray-800 dark:text-white/90">
+            Edit Stock Printer
+          </h4>
+          <p class="mb-6 text-sm text-gray-500 dark:text-gray-400 lg:mb-7">
+            Edit Stock Printer for Asset Management Multiprint
+          </p>
+        </div>
+        <form class="flex flex-col">
+          <div class="custom-scrollbar h-[458px] overflow-y-auto p-2">
+            <div>
 
-                  <div class="col-span-2">
-                    <label
-                      class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400"
-                    >
-                      MP.No
-                    </label>
-                    <input
-                      type="text"
-                      value=""
-                      class="dark:bg-dark-900 h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800"
-                    />
-                  </div>
+              <div class="grid grid-cols-1 gap-x-6 gap-y-5 lg:grid-cols-2">
+                <div class="col-span-2 lg:col-span-1">
+                  <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
+                    Type
+                  </label>
+                  <input type="text" value=""
+                    class="dark:bg-dark-900 h-11 w-full rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800" />
+                </div>
 
-                
+                <div class="col-span-2 lg:col-span-1">
+                  <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
+                    MP.No
+                  </label>
+                  <input type="text" value=""
+                    class="dark:bg-dark-900 h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800" />
+                </div>
 
-                  <div class="col-span-2">
-                    <label
-                      class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400"
-                    >
-                      Status
-                    </label>
-                      <select
-                      class="dark:bg-dark-900 h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:focus:border-brand-800"
-                    >
-                      <option value="team-manager">Contract</option>
-                      <option value="developer">Free</option>
-                    </select>
-                  </div>
+                <div class="col-span-2">
+                  <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
+                    MP.No
+                  </label>
+                  <input type="text" value=""
+                    class="dark:bg-dark-900 h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800" />
+                </div>
+
+
+
+                <div class="col-span-2">
+                  <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
+                    Status
+                  </label>
+                  <select
+                    class="dark:bg-dark-900 h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:focus:border-brand-800">
+                    <option value="team-manager">Contract</option>
+                    <option value="developer">Free</option>
+                  </select>
                 </div>
               </div>
             </div>
-            <div class="flex items-center gap-3 px-2 mt-6 lg:justify-end">
-              <button
-                @click="isEditStockPrinter = false"
-                type="button"
-                class="flex w-full justify-center rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/[0.03] sm:w-auto"
-              >
-                Close
-              </button>
-              <button
-                @click="editStockPrinter"
-                type="button"
-                class="flex w-full justify-center rounded-lg bg-brand-500 px-4 py-2.5 text-sm font-medium text-white hover:bg-brand-600 sm:w-auto"
-              >
-                Save Changes
-              </button>
-            </div>
-          </form>
+          </div>
+          <div class="flex items-center gap-3 px-2 mt-6 lg:justify-end">
+            <button @click="isEditStockPrinter = false" type="button"
+              class="flex w-full justify-center rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/[0.03] sm:w-auto">
+              Close
+            </button>
+            <button @click="editStockPrinter" type="button"
+              class="flex w-full justify-center rounded-lg bg-brand-500 px-4 py-2.5 text-sm font-medium text-white hover:bg-brand-600 sm:w-auto">
+              Save Changes
+            </button>
+          </div>
+        </form>
+      </div>
+    </template>
+  </Modal>
+
+
+  <Modal v-if="deleteStockPrinter" @close="deleteStockPrinter = false">
+    <template #body>
+      <div class="relative w-full max-w-[400px] rounded-3xl bg-white p-6 dark:bg-gray-900">
+        <!-- Close Button -->
+        <button @click="deleteStockPrinter = false"
+          class="absolute right-5 top-5 flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 text-gray-400 hover:bg-gray-200 hover:text-gray-600 dark:bg-gray-700 dark:text-gray-400 dark:hover:bg-white/[0.07] dark:hover:text-gray-300">
+          ✕
+        </button>
+
+        <!-- Title & Message -->
+        <div class="text-center px-2">
+          <h4 class="mb-2 text-xl font-semibold text-gray-800 dark:text-white/90">
+            Konfirmasi Hapus
+          </h4>
+          <p class="mb-6 text-sm text-gray-500 dark:text-gray-400">
+            Apakah kamu yakin ingin menghapus <br />
+            data <span class="font-semibold text-red-600">Stock Printer</span> ini?
+          </p>
         </div>
-      </template>
-    </Modal>
 
-
-    <Modal v-if="deleteStockPrinter" @close="deleteStockPrinter = false">
-  <template #body>
-    <div
-      class="relative w-full max-w-[400px] rounded-3xl bg-white p-6 dark:bg-gray-900"
-    >
-      <!-- Close Button -->
-      <button
-        @click="deleteStockPrinter = false"
-        class="absolute right-5 top-5 flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 text-gray-400 hover:bg-gray-200 hover:text-gray-600 dark:bg-gray-700 dark:text-gray-400 dark:hover:bg-white/[0.07] dark:hover:text-gray-300"
-      >
-        ✕
-      </button>
-
-      <!-- Title & Message -->
-      <div class="text-center px-2">
-        <h4 class="mb-2 text-xl font-semibold text-gray-800 dark:text-white/90">
-          Konfirmasi Hapus
-        </h4>
-        <p class="mb-6 text-sm text-gray-500 dark:text-gray-400">
-          Apakah kamu yakin ingin menghapus <br />
-          data <span class="font-semibold text-red-600">Stock Printer</span> ini?
-        </p>
+        <!-- Buttons -->
+        <div class="flex justify-end gap-3 px-2">
+          <button @click="deleteStockPrinter = false" type="button"
+            class="px-4 py-2.5 text-sm font-medium rounded-lg border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400">
+            Batal
+          </button>
+          <button @click="confirmDelete" type="button"
+            class="px-4 py-2.5 text-sm font-medium rounded-lg bg-red-600 text-white hover:bg-red-700">
+            Hapus
+          </button>
+        </div>
       </div>
-
-      <!-- Buttons -->
-      <div class="flex justify-end gap-3 px-2">
-        <button
-          @click="deleteStockPrinter = false"
-          type="button"
-          class="px-4 py-2.5 text-sm font-medium rounded-lg border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400"
-        >
-          Batal
-        </button>
-        <button
-          @click="confirmDelete"
-          type="button"
-          class="px-4 py-2.5 text-sm font-medium rounded-lg bg-red-600 text-white hover:bg-red-700"
-        >
-          Hapus
-        </button>
-      </div>
-    </div>
-  </template>
-    </Modal>
+    </template>
+  </Modal>
 
 
 
-    
-
-
-    
-    
-  
-  <div
-    class="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03]"
-  >
+  <div class="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03]">
     <div class="max-w-full overflow-x-auto custom-scrollbar">
-    <div>
-    </div>
+      <div>
+      </div>
       <table class="min-w-full">
         <thead>
           <tr class="border-b border-gray-200 dark:border-gray-700">
@@ -450,11 +362,7 @@
           </tr>
         </thead>
         <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
-          <tr
-            v-for="(surtug, index) in surtugs"
-            :key="index"
-            class="border-t border-gray-100 dark:border-gray-800"
-          >
+          <tr v-for="(surtug, index) in surtugs" :key="index" class="border-t border-gray-100 dark:border-gray-800">
             <td class="px-5 py-4 sm:px-6">
               <p class="text-gray-500 text-theme-sm dark:text-gray-400">{{ surtug.nokomplain }}</p>
             </td>
@@ -473,10 +381,12 @@
 
             <td class="px-5 py-4 sm:px-6">
               <router-link to="/surattugas-detail" class="edit-button">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
-                  </svg> Edit
-                </router-link>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                  stroke="currentColor" class="size-6">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                </svg> Edit
+              </router-link>
             </td>
           </tr>
         </tbody>
@@ -533,7 +443,7 @@ const surtugs = ref([
     pic: 'Gojo Satoru',
     status: 'On Progress',
   },
-  
+
 
 ])
 // Modal Advanced Filter
