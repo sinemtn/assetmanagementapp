@@ -24,7 +24,5 @@
         </p>
       </div>
     </router-link>
-
-
   </div>
 </template>
