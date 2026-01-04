@@ -1,12 +1,10 @@
 <template>
 
   <div>
-    
     <div class="flex justify-between">
 
       <form>
         <div class="flex gap-2 items-center">
-
           <div class="relative">
             <button class="absolute -translate-y-1/2 left-4 top-1/2">
               <svg class="fill-gray-500 dark:fill-gray-400" width="20" height="20" viewBox="0 0 20 20" fill="none"
@@ -18,11 +16,9 @@
             </button>
             <input type="text" placeholder="Search ..."
               class="dark:bg-dark-900 h-11 w-full rounded-lg border border-gray-200 bg-transparent py-2.5 pl-12 pr-14 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-800 dark:bg-gray-900 dark:bg-white/[0.03] dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800 " />
-
             <button
               class="absolute right-2.5 top-1/2 inline-flex -translate-y-1/2 items-center gap-0.5 rounded-lg border border-gray-200 bg-gray-50 px-[7px] py-[4.5px] text-xs -tracking-[0.2px] text-gray-500 dark:border-gray-800 dark:bg-white/[0.03] dark:text-gray-400">
               <span> Search </span>
-
             </button>
           </div>
 
@@ -31,6 +27,7 @@
             <button type="button" class="text-sm text-gray-700" @click="isAdvancedFilter = true">Filter
               Pencarian</button>
           </div>
+
           <Modal v-if="isAdvancedFilter" @close="isAdvancedFilter = false">
             <template #body>
               <div
@@ -47,7 +44,7 @@
                 </button>
                 <div class="px-2 pr-14">
                   <h4 class="mb-2 text-2xl font-semibold text-gray-800 dark:text-white/90">
-                    Filter Pencarian Printer
+                    Filter Pencarian Toner
                   </h4>
                 </div>
                 <form class="flex flex-col">
@@ -55,39 +52,22 @@
                     <div>
                       <div class="grid grid-cols-1 gap-x-6 gap-y-3 lg:grid-cols-2">
 
-
-                        <!-- Kategori Advanced Filter -->
                         <div class="col-span-2">
                           <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
-                            Kategori
+                            Tipe
                           </label>
                           <input type="text" value=""
                             class="dark:bg-dark-900 h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800" />
                         </div>
 
-                        <!-- MP. No Advanced Filter -->
                         <div class="col-span-2">
                           <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
-                            MP. No
+                            Customer
                           </label>
                           <input type="text" value=""
                             class="dark:bg-dark-900 h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800" />
                         </div>
 
-                        <!-- Status Advanced Filter -->
-                        <div class="col-span-2">
-                          <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
-                            Status
-                          </label>
-                          <select
-                            class="dark:bg-dark-900 h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:focus:border-brand-800">
-                            <option value="">Kontrak</option>
-                            <option value="">Ready</option>
-                            <option value="">Kontrak BUP</option>
-                          </select>
-                        </div>
-
-                        <!-- Lokasi Advanced Filter -->
                         <div class="col-span-2">
                           <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
                             Lokasi
@@ -114,25 +94,22 @@
               </div>
             </template>
           </Modal>
-
-
         </div>
       </form>
 
-
       <div
         class="rounded-xl border border-gray-200 bg-white p-3 dark:border-gray-800 dark:bg-white/[0.03] md:p-4 hover:shadow-sm transition">
-        <router-link to="/stock/printer/tambah" class="block">
+        <router-link to="/stock/toner/tambah" class="block">
           <span class="flex items-center gap-2">
             <PlusIcon />
-
             Tambah
           </span>
         </router-link>
       </div>
-    </div>
 
+    </div>
   </div>
+
 
   <Modal v-if="isPlusToner" @close="isPlusToner = false">
     <template #body>
@@ -164,8 +141,8 @@
                   </label>
                   <input type="text" value=""
                     class="dark:bg-dark-900 h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800" />
-                
-                  
+
+
                 </div>
 
                 <div class="col-span-2">
@@ -177,48 +154,48 @@
                 </div>
 
                 <div class="col-span-2">
-                   <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
-                  Customer
-                </label>
+                  <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
+                    Customer
+                  </label>
 
-                <div class="relative w-full mb-4">
-                  <!-- Input field -->
-                  <input v-model="tipeprinter" type="text" placeholder="Customer"
-                    class="h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 pr-10 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30"
-                    @keydown.enter="searchTipePrinter" />
+                  <div class="relative w-full mb-4">
+                    <!-- Input field -->
+                    <input v-model="tipeprinter" type="text" placeholder="Customer"
+                      class="h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 pr-10 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30"
+                      @keydown.enter="searchTipePrinter" />
 
-                  <!-- Search button -->
-                  <button type="button" @click="toggleSearchTipePrinter"
-                    class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-brand-600">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                      stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M21 21l-4.35-4.35M11 18a7 7 0 100-14 7 7 0 000 14z" />
-                    </svg>
-                  </button>
+                    <!-- Search button -->
+                    <button type="button" @click="toggleSearchTipePrinter"
+                      class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-brand-600">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M21 21l-4.35-4.35M11 18a7 7 0 100-14 7 7 0 000 14z" />
+                      </svg>
+                    </button>
 
-                  <div v-if="showTipePrinter"
-                    class="absolute left-0 z-50 mt-1 w-full max-h-48 overflow-auto rounded-md border border-gray-200 bg-white shadow-md dark:border-gray-700 dark:bg-gray-800">
-                    <ul>
-                      <li v-for="(item, index) in filteredTipePrinters" :key="index" @click="selectTipePrinter(item)"
-                        class="cursor-pointer px-3 py-2 text-sm text-gray-800 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
-                        {{ item }}
-                      </li>
+                    <div v-if="showTipePrinter"
+                      class="absolute left-0 z-50 mt-1 w-full max-h-48 overflow-auto rounded-md border border-gray-200 bg-white shadow-md dark:border-gray-700 dark:bg-gray-800">
+                      <ul>
+                        <li v-for="(item, index) in filteredTipePrinters" :key="index" @click="selectTipePrinter(item)"
+                          class="cursor-pointer px-3 py-2 text-sm text-gray-800 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                          {{ item }}
+                        </li>
 
-                      <li v-if="filteredTipePrinters.length === 0"
-                        class="px-3 py-2 text-sm text-gray-500 dark:text-gray-400">
-                        Tipe Printer Tidak Ditemukan
-                      </li>
-                    </ul>
+                        <li v-if="filteredTipePrinters.length === 0"
+                          class="px-3 py-2 text-sm text-gray-500 dark:text-gray-400">
+                          Tipe Printer Tidak Ditemukan
+                        </li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
-                </div>
 
 
-                
-                 
 
-             
+
+
+
 
                 <div class="col-span-2 ">
                   <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
@@ -368,13 +345,6 @@
     </template>
   </Modal>
 
-
-
-
-
-
-
-
   <div class="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03]">
     <div class="max-w-full overflow-x-auto custom-scrollbar">
       <div>
@@ -400,7 +370,8 @@
           </tr>
         </thead>
         <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
-          <tr v-for="(stocktoner, index) in stocktoners" :key="stocktoner.toner" class="border-t border-gray-100 dark:border-gray-800">
+          <tr v-for="(stocktoner, index) in stocktoners" :key="stocktoner.toner"
+            class="border-t border-gray-100 dark:border-gray-800">
             <td class="px-5 py-4 sm:px-6">
               <p class="text-gray-500 text-theme-sm dark:text-gray-400">{{ stocktoner.toner }}</p>
             </td>
@@ -413,7 +384,7 @@
             <td class="px-5 py-4 sm:px-6">
               <p class="text-gray-500 text-theme-sm dark:text-gray-400">{{ stocktoner.location }}</p>
             </td>
-            
+
             <td class="px-5 py-4 sm:px-6">
               <div class="flex items-center gap-2">
                 <PlusIcon class="w-5 h-5 cursor-pointer hover:text-red-500 dark:text-gray-400"
@@ -430,7 +401,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted} from 'vue';
+import { ref, onMounted } from 'vue';
 import axios from 'axios';
 import {
   EditIcon,
@@ -461,11 +432,11 @@ const saveMinusToner = () => {
 const stocktoners = ref([]);
 const loading = ref(true);
 
-onMounted(async() => {
+onMounted(async () => {
   try {
     const response = await axios.get('https://103bec10-ae2f-4484-bfc7-16921f4b1b5e.mock.pstmn.io/api/stock/toner')
     stocktoners.value = response.data.data
-  } catch (error){
+  } catch (error) {
     console.error('Gagal Fetching Data:', error)
   } finally {
     loading.value = false
@@ -481,7 +452,3 @@ const AdvancedFilter = () => {
   isAdvancedFilter.value = true
 }
 </script>
-
-<style scoped>
-/* Add any additional styles here if needed */
-</style>

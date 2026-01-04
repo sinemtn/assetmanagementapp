@@ -1,7 +1,7 @@
 <template>
+
   <div>
     <div class="flex justify-between">
-
       <form>
         <div class="flex gap-2 items-center">
 
@@ -26,9 +26,12 @@
 
           <div class="flex items-center cursor-pointer hover:text-brand-600 transition">
             <FlagIcon class="mr-1" />
-            <button type="button" class="text-sm text-gray-700" @click="isAdvancedFilter = true">Filter
-              Pencarian</button>
+            <button type="button" class="text-sm text-gray-700" @click="isAdvancedFilter = true">
+              Filter Pencarian
+            </button>
+
           </div>
+
           <Modal v-if="isAdvancedFilter" @close="isAdvancedFilter = false">
             <template #body>
               <div
@@ -112,11 +115,8 @@
               </div>
             </template>
           </Modal>
-
-
         </div>
       </form>
-
 
       <div
         class="rounded-xl border border-gray-200 bg-white p-3 dark:border-gray-800 dark:bg-white/[0.03] md:p-4 hover:shadow-sm transition">
@@ -132,11 +132,10 @@
   </div>
 
   <div class="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03]">
-    <div class="max-w-full overflow-x-auto custom-scrollbar">
-      <div>
-      </div>
-      <table class="min-w-full">
 
+    <div class="max-w-full overflow-x-auto custom-scrollbar">
+
+      <table class="min-w-full">
         <thead>
           <tr class="border-b border-gray-200 dark:border-gray-700">
             <th class="px-5 py-3 text-left w-3/11 sm:px-6">
@@ -180,6 +179,7 @@
                   <EditIcon />
                   Edit
                 </button>
+
                 <Modal v-if="isEditStockPrinter" @close="isEditStockPrinter = false">
                   <template #body>
                     <div
@@ -202,10 +202,9 @@
                       <form class="flex flex-col">
                         <div class="custom-scrollbar h-[458px] overflow-y-auto p-2">
                           <div>
-                            <div class="grid grid-cols-1 gap-x-6 gap-y-3 lg:grid-cols-2">
 
+                            <div class="grid grid-cols-1 gap-x-6 gap-y-5 lg:grid-cols-2">
 
-                              <!-- Kategori Advanced Filter -->
                               <div class="col-span-2">
                                 <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
                                   Kategori
@@ -214,78 +213,92 @@
                                   class="dark:bg-dark-900 h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800" />
                               </div>
 
-                              <!-- MP. No Advanced Filter -->
                               <div class="col-span-2">
                                 <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
-                                  MP No
+                                  MP. No
                                 </label>
                                 <input type="text" value=""
                                   class="dark:bg-dark-900 h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800" />
                               </div>
 
-                              <!-- Lokasi Advanced Filter -->
                               <div class="col-span-2">
                                 <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
                                   Status
                                 </label>
                                 <select
                                   class="dark:bg-dark-900 h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:focus:border-brand-800">
-                                  <option value=""> Ready </option>
-                                  <option value=""> Contract </option>
-                                  <option value=""> Repair </option>
-                                  <option value=""> Sold </option>
+                                  <option value="pemanas">Ready</option>
+                                  <option value="Kabel">Contract</option>
+                                  <option value="Kabel">Repair</option>
                                 </select>
                               </div>
-                            </div>
 
-                            <div class="flex items-center gap-3 px-2 mt-6 lg:justify-end">
-                              <button @click="isAdvancedFilter = false" type="button"
-                                class="flex w-full justify-center rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/[0.03] sm:w-auto">
-                                Batal
-                              </button>
-                              <button @click="isAdvancedFilter" type="button"
-                                class="flex w-full justify-center rounded-lg bg-brand-500 px-4 py-2.5 text-sm font-medium text-white hover:bg-brand-600 sm:w-auto">
-                                Apply
-                              </button>
+                              <div class="col-span-2">
+                                <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
+                                  Lokasi
+                                </label>
+                                <input type="text" value=""
+                                  class="dark:bg-dark-900 h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800" />
+                              </div>
+
+                              <!-- <div class="col-span-2">
+                                <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
+                                  Keterangan
+                                </label>
+                                <textarea type="text" value=""
+                                  class="dark:bg-dark-900 h-20 w-full appearance-none rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800" />
+                              </div> -->
+
+
                             </div>
                           </div>
                         </div>
-
+                        <div class="flex items-center gap-3 px-2 mt-6 lg:justify-end">
+                          <button @click="isEditStockPrinter = false" type="button"
+                            class="flex w-full justify-center rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/[0.03] sm:w-auto">
+                            Batal
+                          </button>
+                          <button @click="saveStockPrinter" type="button"
+                            class="flex w-full justify-center rounded-lg bg-brand-500 px-4 py-2.5 text-sm font-medium text-white hover:bg-brand-600 sm:w-auto">
+                            Simpan
+                          </button>
+                        </div>
                       </form>
                     </div>
                   </template>
                 </Modal>
+
               </div>
             </td>
           </tr>
         </tbody>
-
       </table>
 
       <div class="flex justify-end items-center gap-2 p-4">
         <button class="px-3 py-1 rounded border" :disabled="currentPage === 1" @click="currentPage--">
-          < Prev
-        </button>
+          < Prev </button>
 
-        <span class="text-sm">
-          Page {{ currentPage }} of {{ totalPages }}
-        </span>
+            <span class="text-sm">
+              Page {{ currentPage }} of {{ totalPages }}
+            </span>
 
-        <button class="px-3 py-1 rounded border" :disabled="currentPage === totalPages" @click="currentPage++">
-          Next >
-        </button>
+            <button class="px-3 py-1 rounded border" :disabled="currentPage === totalPages" @click="currentPage++">
+              Next >
+            </button>
       </div>
-
-
-
-
+      
     </div>
+
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted, computed } from 'vue';
 import axios from 'axios';
+import EditIcon from '@/icons/EditIcon.vue';
+import PlusIcon from '@/icons/PlusIcon.vue';
+import FlagIcon from '@/icons/FlagIcon.vue';
+import Modal from '../profile/Modal.vue';
 
 const stockprinters = ref([]);
 const loading = ref(true);
@@ -303,6 +316,21 @@ onMounted(async () => {
   }
 })
 
+// Modal Advanced Filter
+const isAdvancedFilter = ref(false);
+const AdvancedFilter = () => {
+  console.log('Filter Opened')
+  isAdvancedFilter.value = true
+}
+
+// Modal Stock Printer
+const isEditStockPrinter = ref(false)
+const saveStockPrinter = () => {
+  // Implement save profile logic here
+  console.log('Profile saved')
+  isEditStockPrinter.value = false
+}
+
 // Pagination
 const currentPage = ref(1);
 const itemsPerPage = ref(5);
@@ -316,6 +344,4 @@ const totalPages = computed(() => {
   return Math.ceil(stockprinters.value.length / itemsPerPage.value);
 });
 
-
 </script>
-

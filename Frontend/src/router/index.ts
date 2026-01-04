@@ -7,6 +7,7 @@ const router = createRouter({
   },
   routes: [
   
+  // Dashboard
     {
       path: '/',
       name: 'Dashboard',
@@ -15,6 +16,68 @@ const router = createRouter({
         title: 'Dashboard',
       },
     },
+    
+  // Stock
+    {
+      path: '/stock',
+      name: 'Stock',
+      component: () => import('../views/Stock/Index.vue'),
+      meta: {
+        title: 'Stock',
+      },
+    },   
+    {
+      path: '/stock/printer',
+      name: 'Stock Printer',
+      component: () => import('../views/Stock/Printer.vue'),
+      meta: {
+        title: 'Stock Printer',
+      },
+    },
+    {
+      path: '/stock/printer/tambah',
+      name: 'Tambah Printer',
+      component: () => import('../views/Stock/TambahPrinter.vue'),
+      meta: {
+        title: 'Tambah Printer',
+      },
+    },
+    {
+      path: '/stock/toner',
+      name: 'Toner Printer',
+      component: () => import('../views/Stock/Toner.vue'),
+      meta: {
+        title: 'Stock Toner',
+      },
+    },
+    {
+      path: '/stock/toner/tambah',
+      name: 'Tambah Toner',
+      component: () => import('../views/Stock/TambahToner.vue'),
+      meta: {
+        title: 'Tambah Toner',
+      },
+    },
+    {
+      path: '/stock/sparepart',
+      name: 'Toner Sparepart',
+      component: () => import('../views/Stock/Sparepart.vue'),
+      meta: {
+        title: 'Sparepart Toner',
+      },
+    },
+     {
+      path: '/stock/sparepart/tambah',
+      name: 'Tambah Sparepart',
+      component: () => import('../views/Stock/TambahSparepart.vue'),
+      meta: {
+        title: 'Tambah Sparepart',
+      },
+    },
+
+
+
+
 
     {
       path: '/master-data',
@@ -52,56 +115,11 @@ const router = createRouter({
       },
     },
 
-    {
-      path: '/stock',
-      name: 'Stock',
-      component: () => import('../views/Stock/Index.vue'),
-      meta: {
-        title: 'Stock',
-      },
-    },
-    {
-      path: '/stock/printer',
-      name: 'Stock Printer',
-      component: () => import('../views/Stock/Printer.vue'),
-      meta: {
-        title: 'Stock Printer',
-      },
-    },
-    {
-      path: '/stock/printer/tambah',
-      name: 'Tambah Printer',
-      component: () => import('../views/Stock/TambahPrinter.vue'),
-      meta: {
-        title: 'Stock Printer',
-      },
-    },
-    {
-      path: '/stock/printer/edit',
-      name: 'Edit Printer',
-      component: () => import('../views/Stock/EditPrinter.vue'),
-      meta: {
-        title: 'Stock Printer',
-      },
-    },
 
 
-    {
-      path: '/stock/toner',
-      name: 'Toner Printer',
-      component: () => import('../views/Stock/Toner.vue'),
-      meta: {
-        title: 'Stock Toner',
-      },
-    },
-    {
-      path: '/stock/sparepart',
-      name: 'Toner Sparepart',
-      component: () => import('../views/Stock/Sparepart.vue'),
-      meta: {
-        title: 'Sparepart Toner',
-      },
-    },
+
+
+
 
     {
       path: '/surattugas',

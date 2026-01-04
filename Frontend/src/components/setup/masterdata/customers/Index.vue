@@ -129,8 +129,7 @@
                 class="rounded-xl border border-gray-200 bg-white p-3 dark:border-gray-800 dark:bg-white/[0.03] md:p-4 hover:shadow-sm transition">
                 <router-link to="/stock/printer/tambah" class="block">
                     <span class="flex items-center gap-2">
-                        <PlusIcon />
-
+                        <PlusIcon/>
                         Tambah
                     </span>
                 </router-link>
@@ -497,6 +496,7 @@ import axios from 'axios';
 import FlagIcon from '@/icons/FlagIcon.vue';
 import Modal from '@/components/profile/Modal.vue';
 import EditIconVue from '@/icons/EditIcon.vue';
+import PlusIcon from '@/icons/PlusIcon.vue';
 
 const isPlusToner = ref(false)
 
