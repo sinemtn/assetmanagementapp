@@ -25,12 +25,11 @@
       </form>
 
       <!-- Filter Pencarian -->
-      <form>
-        <div class="flex items-center cursor-pointer hover:text-brand-600 transition">
-          <FlagIcon class="mr-1" />
-          <button type="button" class="text-sm text-gray-700" @click="isAdvancedFilter = true">Filter Pencarian</button>
-        </div>
-      </form>
+      <div class="flex items-center cursor-pointer hover:text-brand-600 transition">
+        <FlagIcon class="mr-1" />
+        <button type="button" class="text-sm text-gray-700" @click="isAdvancedFilter = true">Filter Pencarian</button>
+      </div>
+
 
       <Modal v-if="isAdvancedFilter" @close="isAdvancedFilter = false">
         <template #body>
@@ -48,7 +47,7 @@
             </button>
             <div class="px-2 pr-14">
               <h4 class="mb-2 text-2xl font-semibold text-gray-800 dark:text-white/90">
-                Filter Pencarian Customer
+                Filter Pencarian Komplain
               </h4>
             </div>
             <form class="flex flex-col">
@@ -56,39 +55,30 @@
                 <div>
                   <div class="grid grid-cols-1 gap-x-6 gap-y-3 lg:grid-cols-2">
 
-
-                    <!-- Kategori Advanced Filter -->
                     <div class="col-span-2">
                       <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
-                        Name
+                        Customer
                       </label>
                       <input type="text" value=""
                         class="dark:bg-dark-900 h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800" />
                     </div>
 
-                    <!-- MP. No Advanced Filter -->
                     <div class="col-span-2">
                       <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
-                        Address
+                        Status
                       </label>
-                      <input type="text" value=""
-                        class="dark:bg-dark-900 h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800" />
-                    </div>
-
-                    <!-- Lokasi Advanced Filter -->
-                    <div class="col-span-2">
-                      <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
-                        Billing Account
-                      </label>
-                      <input type="number" value=""
-                        class="dark:bg-dark-900 h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800" />
+                      <select
+                        class="dark:bg-dark-900 h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:focus:border-brand-800">
+                        <option value="">Solved</option>
+                        <option value="">In Progress</option>
+                      </select>
                     </div>
                   </div>
 
                   <div class="flex items-center gap-3 px-2 mt-6 lg:justify-end">
                     <button @click="isAdvancedFilter = false" type="button"
                       class="flex w-full justify-center rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/[0.03] sm:w-auto">
-                      Batal
+                      Clear
                     </button>
                     <button @click="isAdvancedFilter" type="button"
                       class="flex w-full justify-center rounded-lg bg-brand-500 px-4 py-2.5 text-sm font-medium text-white hover:bg-brand-600 sm:w-auto">
@@ -108,7 +98,7 @@
           class="rounded-xl border border-gray-200 bg-white p-3 dark:border-gray-800 dark:bg-white/[0.03] md:p-4 hover:shadow-sm transition">
           <router-link to="/master-data/customer/tambah" class="block">
             <span class="flex items-center gap-2">
-              <PlusIcon/>
+              <PlusIcon />
               Tambah
             </span>
           </router-link>

@@ -146,7 +146,7 @@
 
       <div class="flex items-center gap-3 px-2 mt-6">
         <button
-          @click="isProfileInfoModal = false"
+          @click="goBack"
           type="button"
           class="flex w-full justify-center rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/[0.03] sm:w-auto"
         >
@@ -194,7 +194,7 @@
         <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
           <tr
             v-for="(stditem, index) in stditems"
-            :key="index"
+            :key="stditem.id"
             class="border-t border-gray-100 dark:border-gray-800"
           >
             <td class="px-5 py-4 sm:px-6">
@@ -208,26 +208,24 @@
             </td>
             <td>
               <div class="flex items-center gap-2">
-                <button class="edit-button">
-                  <router-link to="/complaint/detail" class="block">
-                    <span class="flex items-center gap-2">
-                      <DeleteIcon/>
-                      Hapus
-                      </span>
-                  </router-link>
+                <button
+                  type="button"
+                  @click="confirmDelete(stditem.id)"
+                  class="edit-button text-red-600 hover:text-red-700"
+                >
+                  <span class="flex items-center gap-2">
+                    <DeleteIcon />
+                    Hapus
+                  </span>
                 </button>
+
               </div>
             </td>
           </tr>
         </tbody>
         </table>
       </div>
-
     </div>
-
-
-
-
   </div>
 </template>
 
@@ -235,23 +233,42 @@
 import DeleteIcon from '@/icons/DeleteIcon.vue'
 import PlusIcon from '@/icons/PlusIcon.vue'
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
 const tabs = ['General', 'Surat Tugas' ]
 const activeTab = ref('General')
 
-
 const stditems = ref([
   {
+    id: 1,
     namafile: 'HP LJ PRO200 M201',
     jenisfile: 'Printer',
     keterangan: 'Keterangan mengenai HP LJ PRO2000',
   },
   {
+    id: 2,
     namafile: 'LQ2180 PITA EPSON',
     jenisfile: 'Toner',
     keterangan: 'Keterangan Mengenai LQ2180',
   },
 
-
 ])
+
+// Delete Surat Tugas di Komplain
+const confirmDelete = (id) => {
+  if (confirm('Yakin ingin menghapus data ini?')) {
+    deleteData(id)
+  }
+}
+const deleteData = async (id) => {
+  await axios.delete(`/complaint/${id}`)
+}
+
+// Batal
+// Go Back
+const router = useRouter()
+const goBack = () => {
+    router.back()
+}
+
 </script>

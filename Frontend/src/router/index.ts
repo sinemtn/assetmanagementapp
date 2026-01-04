@@ -93,13 +93,38 @@ const router = createRouter({
         title: 'Surat Tugas Detail',
       },
     },   
-    
     {
       path: '/surattugas/tambah',
       name: 'Tambah Surat Tugas',
       component: () => import('../views/SuratTugas/Tambah.vue'),
       meta: {
         title: 'Tambah Surat Tugas',
+      },
+    }, 
+  
+  // Komplain
+    {
+      path: '/complaint',
+      name: 'Complaint',
+      component: () => import('../views/Complaint/Index.vue'),
+      meta: {
+        title: 'Complaint',
+      },
+    },
+    {
+      path: '/complaint/detail',
+      name: 'Komplain Detail',
+      component: () => import('../views/Complaint/Detail.vue'),
+      meta: {
+        title: 'Komplain Detil',
+      },
+    },
+     {
+      path: '/complaint/tambah',
+      name: 'Tambah Komplain',
+      component: () => import('../views/Complaint/Tambah.vue'),
+      meta: {
+        title: 'Tambah Komplain',
       },
     }, 
 
@@ -143,6 +168,8 @@ const router = createRouter({
         title: 'Master Data Printer',
       },
     },
+  
+
 
 
 
@@ -182,23 +209,7 @@ const router = createRouter({
       },
     },
 
-    {
-      path: '/complaint',
-      name: 'Complaint',
-      component: () => import('../views/Complaint/Index.vue'),
-      meta: {
-        title: 'Complaint',
-      },
-    },
-
-    {
-      path: '/complaint/detail',
-      name: 'Komplain Detail',
-      component: () => import('../views/Complaint/Detail.vue'),
-      meta: {
-        title: 'Komplain Detil',
-      },
-    },
+    
 
 
     {
