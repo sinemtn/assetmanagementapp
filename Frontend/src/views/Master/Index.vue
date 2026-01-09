@@ -16,8 +16,6 @@
 import { ref } from "vue";
 import PageBreadcrumb from "@/components/common/PageBreadcrumb.vue";
 import AdminLayout from "@/components/layout/AdminLayout.vue";
-import ComponentCard from "@/components/common/ComponentCard.vue";
 import Index from "@/components/master/Index.vue";
-import EcommerceMetrics from "@/components/ecommerce/EcommerceMetrics.vue";
 const currentPageTitle = ref("Master Data");
 </script>

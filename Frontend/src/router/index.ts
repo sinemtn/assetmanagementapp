@@ -128,58 +128,79 @@ const router = createRouter({
       },
     }, 
 
-
-
-
-
-
+  // Master Data
+   {
+      path: '/settings',
+      name: 'Settings',
+      component: () => import('../views/Setup/Index.vue'),
+      meta: {
+        title: 'Settings',
+      },
+    },
     {
-      path: '/master-data',
+      path: '/settings/masterdata',
       name: 'Master Data',
-      component: () => import('../views/Master/Index.vue'),
+      component: () => import('../views/Setup/masterdata/Index.vue'),
       meta: {
         title: 'Master Data',
       },
     },
-
     {
-      path: '/master-data/customer',
+      path: '/settings/masterdata/customers',
       name: 'Master Data Customer',
-      component: () => import('../views/Master/Customer.vue'),
+      component: () => import('../views/Setup/masterdata/customer/Index.vue'),
       meta: {
         title: 'Master Data Customer',
       },
     },
-    
+    {
+      path: '/settings/masterdata/customers/tambah',
+      name: 'Master Data Customer',
+      component: () => import('../views/Setup/masterdata/customer/Index.vue'),
+      meta: {
+        title: 'Master Data Customer',
+      },
+    },
+
+
+
+
+
+
+  // GAK KEPAKEK
+      {
+      path: '/master-data',
+      name: 'Master Datarrrr',
+      component: () => import('../views/Master/Index.vue'),
+      meta: {
+        title: 'Master Dataaaa',
+      },
+    },
+    {
+      path: '/master-data/customer',
+      name: 'Master Data Customerrrr',
+      component: () => import('../views/Master/Customer.vue'),
+      meta: {
+        title: 'Master Data Customerrrr',
+      },
+    },
     {
       path: '/master-data/customer/tambah',
-      name: 'Tambah Data Customer',
+      name: 'Tambah Data Customerrrr',
       component: () => import('../views/Master/TambahCustomer.vue'),
       meta: {
-        title: 'Tambah Data Customer',
+        title: 'Tambah Data Customerrrr',
       },
     },
 
     {
       path: '/master-data/printer',
-      name: 'Master Data Printer',
+      name: 'Master Data Printerrrr',
       component: () => import('../views/Master/Printer.vue'),
       meta: {
-        title: 'Master Data Printer',
+        title: 'Master Data Printerrrr',
       },
     },
-  
-
-
-
-
-
-
-
-
-    
-
-
     {
       path: '/activity-printer',
       name: 'Activity Printer',
@@ -206,36 +227,6 @@ const router = createRouter({
       component: () => import('../views/Activity/Toner/Index.vue'),
       meta: {
         title: 'Activity Toner',
-      },
-    },
-
-    
-
-
-    {
-      path: '/settings',
-      name: 'Settings',
-      component: () => import('../views/Setup/Index.vue'),
-      meta: {
-        title: 'Settings',
-      },
-    },
-
-    {
-      path: '/settings/masterdata',
-      name: 'Master Data',
-      component: () => import('../views/Setup/masterdata/Index.vue'),
-      meta: {
-        title: 'Master Data',
-      },
-    },
-
-    {
-      path: '/settings/masterdata/customers',
-      name: 'Master Data Customer',
-      component: () => import('../views/Setup/masterdata/customer/Index.vue'),
-      meta: {
-        title: 'Master Data Customer',
       },
     },
 

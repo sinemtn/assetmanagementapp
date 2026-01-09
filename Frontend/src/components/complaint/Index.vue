@@ -1,8 +1,8 @@
 <template>
 
   <div>
-
     <div class="flex justify-between items-center">
+
       <form class="mr-2">
         <div class="relative">
           <button class="absolute -translate-y-1/2 left-4 top-1/2">
@@ -29,7 +29,6 @@
         <FlagIcon class="mr-1" />
         <button type="button" class="text-sm text-gray-700" @click="isAdvancedFilter = true">Filter Pencarian</button>
       </div>
-
 
       <Modal v-if="isAdvancedFilter" @close="isAdvancedFilter = false">
         <template #body>

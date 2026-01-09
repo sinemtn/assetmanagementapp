@@ -21,7 +21,7 @@
                 </div>
 
                 <p class="mt-3 text-sm font-bold text-gray-700 dark:text-gray-300">
-                    Customers
+                    Customer
                 </p>
             </div>
         </router-link>
