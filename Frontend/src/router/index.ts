@@ -155,12 +155,62 @@ const router = createRouter({
     },
     {
       path: '/settings/masterdata/customers/tambah',
-      name: 'Master Data Customer',
-      component: () => import('../views/Setup/masterdata/customer/Index.vue'),
+      name: 'Tambah Data Customer',
+      component: () => import('../views/Setup/masterdata/customer/Tambah.vue'),
       meta: {
-        title: 'Master Data Customer',
+        title: 'Tambah Master Data Customer',
       },
     },
+    {
+      path: '/settings/masterdata/supplier',
+      name: 'Master Data Supplier',
+      component: () => import('../views/Setup/masterdata/supplier/Index.vue'),
+      meta: {
+        title: 'Master Data Supplier',
+      },
+    },
+    {
+      path: '/settings/masterdata/supplier/tambah',
+      name: 'Tambah Data Supplier',
+      component: () => import('../views/Setup/masterdata/supplier/Tambah.vue'),
+      meta: {
+        title: 'Tambah Master Data Supplier',
+      },
+    },
+    {
+      path: '/settings/masterdata/location',
+      name: 'Master Data Lokasi',
+      component: () => import('../views/Setup/masterdata/location/Index.vue'),
+      meta: {
+        title: 'Master Data Lokasi',
+      },
+    },
+    {
+      path: '/settings/masterdata/location/tambah',
+      name: 'Tambah Data Lokasi',
+      component: () => import('../views/Setup/masterdata/location/Tambah.vue'),
+      meta: {
+        title: 'Tambah Master Data Lokasi',
+      },
+    },
+    {
+      path: '/settings/masterdata/user',
+      name: 'Master Data user',
+      component: () => import('../views/Setup/masterdata/user/Index.vue'),
+      meta: {
+        title: 'Master Data user',
+      },
+    },
+    {
+      path: '/settings/masterdata/user/tambah',
+      name: 'Tambah Data user',
+      component: () => import('../views/Setup/masterdata/user/Tambah.vue'),
+      meta: {
+        title: 'Tambah Master Data user',
+      },
+    },
+
+
 
 
 

@@ -35,7 +35,7 @@
 
                     </div>
 
-                    <!-- MODAL -->
+                     <!-- MODAL -->
                     <Modal v-if="isAdvancedFilter" @close="isAdvancedFilter = false">
                         <template #body>
                             <div
@@ -52,7 +52,7 @@
                                 </button>
                                 <div class="px-2 pr-14">
                                     <h4 class="mb-2 text-2xl font-semibold text-gray-800 dark:text-white/90">
-                                        Filter Pencarian Customer
+                                        Filter Pencarian User
                                     </h4>
                                 </div>
                                 <form class="flex flex-col">
@@ -64,7 +64,7 @@
                                                 <div class="col-span-2">
                                                     <label
                                                         class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
-                                                        Customer
+                                                        Username
                                                     </label>
                                                     <input type="text" value=""
                                                         class="dark:bg-dark-900 h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800" />
@@ -73,11 +73,15 @@
                                                 <div class="col-span-2">
                                                     <label
                                                         class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
-                                                        Alamat
+                                                        Role
                                                     </label>
-                                                    <input type="text" value=""
-                                                        class="dark:bg-dark-900 h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800" />
-                                                </div>
+                                                    <select
+                                                        class="dark:bg-dark-900 h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:focus:border-brand-800">
+                                                        <option value="">Super Admin</option>
+                                                        <option value="">Kepala Gudang</option>
+                                                        <option value="">Teknisi</option>
+                                                    </select>
+                                                    </div>
                                             </div>
 
                                             <div class="flex items-center gap-3 px-2 mt-6 lg:justify-end">
@@ -103,7 +107,7 @@
 
             <div
                 class="rounded-xl border border-gray-200 bg-white p-3 dark:border-gray-800 dark:bg-white/[0.03] md:p-4 hover:shadow-sm transition">
-                <router-link to="/settings/masterdata/customers/tambah" class="block">
+                <router-link to="/settings/masterdata/user/tambah" class="block">
                     <span class="flex items-center gap-2">
                         <PlusIcon />
                         Tambah
@@ -127,12 +131,12 @@
                             <p class="font-medium text-gray-500 text-theme-xs dark:text-gray-400">ID</p>
                         </th>
                         <th class="px-5 py-3 text-left w-2/11 sm:px-6">
-                            <p class="font-medium text-gray-500 text-theme-xs dark:text-gray-400">Customer</p>
+                            <p class="font-medium text-gray-500 text-theme-xs dark:text-gray-400">Username</p>
                         </th>
                         <th class="px-5 py-3 text-left w-2/11 sm:px-6">
-                            <p class="font-medium text-gray-500 text-theme-xs dark:text-gray-400">Alamat</p>
+                            <p class="font-medium text-gray-500 text-theme-xs dark:text-gray-400">Role</p>
                         </th>
-                        <th class="px-5 py-3 text-left w-1/11 sm:px-6">
+                        <th class="px-5 py-3 text-left w-2/11 sm:px-6">
                             <p class="font-medium text-gray-500 text-theme-xs dark:text-gray-400">Aksi</p>
                         </th>
                     </tr>
@@ -143,10 +147,10 @@
                             <p class="text-gray-500 text-theme-sm dark:text-gray-400">0001</p>
                         </td>
                         <td class="px-5 py-4 sm:px-6">
-                            <p class="text-gray-500 text-theme-sm dark:text-gray-400">PT Maju Sejahtera</p>
+                            <p class="text-gray-500 text-theme-sm dark:text-gray-400">mortekianond</p>
                         </td>
                         <td class="px-5 py-4 sm:px-6">
-                            <p class="text-gray-500 text-theme-sm dark:text-gray-400">Jl. Ikan Buntek no 2 Waru</p>
+                            <p class="text-gray-500 text-theme-sm dark:text-gray-400">Super Admin</p>
                         </td>
 
                         <td class="px-5 py-4 sm:px-6">
@@ -185,12 +189,11 @@
                             <p class="text-gray-500 text-theme-sm dark:text-gray-400">0002</p>
                         </td>
                         <td class="px-5 py-4 sm:px-6">
-                            <p class="text-gray-500 text-theme-sm dark:text-gray-400">PT Info Global</p>
+                            <p class="text-gray-500 text-theme-sm dark:text-gray-400">adhilnov</p>
                         </td>
                         <td class="px-5 py-4 sm:px-6">
-                            <p class="text-gray-500 text-theme-sm dark:text-gray-400">Jl. Hamzah Haz no 3A</p>
+                            <p class="text-gray-500 text-theme-sm dark:text-gray-400">Kepala Gudang</p>
                         </td>
-
                         <td class="px-5 py-4 sm:px-6">
                             <div class="flex items-center gap-2">
                                 <router-link to="/surattugas-detail" class="edit-button">

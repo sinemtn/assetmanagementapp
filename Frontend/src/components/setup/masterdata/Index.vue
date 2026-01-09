@@ -27,7 +27,7 @@
         </router-link>
 
         <!-- Suppliers -->
-        <router-link to="/settings/masterdata" class="block">
+        <router-link to="/settings/masterdata/supplier" class="block">
             <div class="flex flex-col items-center justify-center">
                 <div
                     class="flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-b from-blue-500 to-blue-600 shadow-md">
@@ -53,7 +53,7 @@
         </router-link>
 
         <!-- Location -->
-        <router-link to="/settings/masterdata" class="block">
+        <router-link to="/settings/masterdata/location" class="block">
             <div class="flex flex-col items-center justify-center">
                 <div
                     class="flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-b from-blue-500 to-blue-600 shadow-md">
@@ -70,7 +70,7 @@
         </router-link>
 
         <!-- Users -->
-        <router-link to="/settings/masterdata" class="block">
+        <router-link to="/settings/masterdata/user" class="block">
             <div class="flex flex-col items-center justify-center">
                 <div
                     class="flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-b from-blue-500 to-blue-600 shadow-md">

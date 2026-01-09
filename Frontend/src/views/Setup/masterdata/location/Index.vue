@@ -1,9 +1,9 @@
 <template>
- <AdminLayout>
+  <AdminLayout>
     <PageBreadcrumb :pageTitle="currentPageTitle" />
     <div class="space-y-5 sm:space-y-6">
       <ComponentCard >
-        <Toner />
+        <Index/>
       </ComponentCard>
     </div>
   </AdminLayout>
@@ -14,6 +14,6 @@ import { ref } from "vue";
 import PageBreadcrumb from "@/components/common/PageBreadcrumb.vue";
 import AdminLayout from "@/components/layout/AdminLayout.vue";
 import ComponentCard from "@/components/common/ComponentCard.vue";
-import Toner from "@/components/setup/Toner.vue";
-const currentPageTitle = ref("Setup Toner");
+import Index from "@/components/setup/masterdata/location/Index.vue";
+const currentPageTitle = ref("Master Data Lokasi");
 </script>

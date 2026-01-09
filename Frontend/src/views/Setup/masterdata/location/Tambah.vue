@@ -3,7 +3,7 @@
     <PageBreadcrumb :pageTitle="currentPageTitle" />
     <div class="space-y-5 sm:space-y-6">
       <ComponentCard >
-        <Customer />
+        <Tambah/>
       </ComponentCard>
     </div>
   </AdminLayout>
@@ -14,6 +14,6 @@ import { ref } from "vue";
 import PageBreadcrumb from "@/components/common/PageBreadcrumb.vue";
 import AdminLayout from "@/components/layout/AdminLayout.vue";
 import ComponentCard from "@/components/common/ComponentCard.vue";
-import Customer from "@/components/setup/Customer.vue";
-const currentPageTitle = ref("Setup Customer");
+import Tambah from "@/components/setup/masterdata/location/Tambah.vue";
+const currentPageTitle = ref("Master Data Lokasi");
 </script>
