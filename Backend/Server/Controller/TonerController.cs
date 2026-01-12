@@ -13,7 +13,7 @@ namespace Server.Controller
         public TonerController(IConfiguration configuration)
         {
             _connString = configuration.GetConnectionString("DefaultConnection") ??
-                throw new ArgumentNullException("Connection string 'DefaultConnection' not found.");
+                throw new ArgumentNullException("Connection string 'DefaultConnection' tidak ditemukan.");
         }
 
         [HttpGet]
@@ -59,7 +59,7 @@ namespace Server.Controller
                     Data = null,
                     Error = new
                     {
-                        message = "Toner not found"
+                        message = "Toner tidak ditemukan"
                     }
                 });
             }
@@ -90,7 +90,7 @@ namespace Server.Controller
                     Data = null,
                     Error = new 
                     {
-                        message = "Toner not found"
+                        message = "Toner tidak ditemukan"
                     }
                 });
             }
@@ -118,7 +118,7 @@ namespace Server.Controller
                     Data = null,
                     Error = new 
                     {
-                        message = "Invalid toner data"
+                        message = "Data toner tidak valid"
                     }
                 });
             }
@@ -137,7 +137,7 @@ namespace Server.Controller
                     Data = null,
                     Error = new 
                     {
-                        message = "Toner with the same ID already exists"
+                        message = "Toner dengan ID yang sama sudah ada"
                     }
                 });
             }
@@ -176,7 +176,7 @@ namespace Server.Controller
                     Data = null,
                     Error = new
                     {
-                        message = "Invalid toner data or ID"
+                        message = "Data toner tidak valid atau ID kosong"
                     }
                 });
             }
@@ -195,7 +195,7 @@ namespace Server.Controller
                     Data = null,
                     Error = new 
                     {
-                        message = "Toner not found"
+                        message = "Toner tidak ditemukan"
                     }
                 });
             }
@@ -232,7 +232,7 @@ namespace Server.Controller
                     Data = null,
                     Error = new
                     {
-                        message = "Toner not found"
+                        message = "Toner tidak ditemukan"
                     }
                 });
             }
@@ -251,7 +251,7 @@ namespace Server.Controller
                     Data = null,
                     Error = new 
                     {
-                        message = "Toner not found"
+                        message = "Toner tidak ditemukan"
                     }
                 });
             }
@@ -269,7 +269,7 @@ namespace Server.Controller
             {
                 StatusCode = 200,
                 Ok = true,
-                Data = "Delete successful",
+                Data = "Berhasil menghapus toner",
                 Error = null
             });
 

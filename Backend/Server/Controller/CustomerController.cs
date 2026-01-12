@@ -13,7 +13,7 @@ namespace Server.Controller
         public CustomerController(IConfiguration configuration)
         {
             _connString = configuration.GetConnectionString("DefaultConnection") ??
-                throw new ArgumentNullException("Connection string 'DefaultConnection' not found.");
+                throw new ArgumentNullException("Connection string 'DefaultConnection' tidak ditemukan.");
         }
 
         [HttpGet]
@@ -47,10 +47,10 @@ namespace Server.Controller
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetCustomerById(int id)
+        public async Task<IActionResult> GetCustomerById(string id)
         {
             Model? customer = null;
-            if (id <= 0)
+            if (string.IsNullOrEmpty(id))
             {
                 return NotFound(new Response<Model?>
                 {
@@ -59,7 +59,7 @@ namespace Server.Controller
                     Data = null,
                     Error = new
                     {
-                        message = "Customer not found"
+                        message = "Customer tidak ditemukan"
                     }
                 });
             }
@@ -90,7 +90,7 @@ namespace Server.Controller
                     Data = null,
                     Error = new 
                     {
-                        message = "Customer not found"
+                        message = "Customer tidak ditemukan"
                     }
                 });
             }
@@ -117,7 +117,7 @@ namespace Server.Controller
                     Data = null,
                     Error = new 
                     {
-                        message = "Invalid customer data"
+                        message = "Data customer tidak valid"
                     }
                 });
             }
@@ -137,7 +137,7 @@ namespace Server.Controller
                     Data = null,
                     Error = new 
                     {
-                        message = "Customer with the same ID already exists"
+                        message = "Customer dengan ID yang sama sudah ada"
                     }
                 });
             }
@@ -164,10 +164,10 @@ namespace Server.Controller
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateCustomer(int id, [FromBody] Model model)
+        public async Task<IActionResult> UpdateCustomer(string id, [FromBody] Model model)
         {
 
-            if (model == null || id <= 0)
+            if (model == null || string.IsNullOrEmpty(id))
             {
                 return BadRequest(new Response<Model?>
                 {
@@ -176,7 +176,7 @@ namespace Server.Controller
                     Data = null,
                     Error = new
                     {
-                        message = "Invalid customer data or ID"
+                        message = "Data customer atau ID tidak valid"
                     }
                 });
             }
@@ -196,7 +196,7 @@ namespace Server.Controller
                     Data = null,
                     Error = new 
                     {
-                        message = "Customer not found"
+                        message = "Customer tidak ditemukan"
                     }
                 });
             }
@@ -221,10 +221,10 @@ namespace Server.Controller
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCustomer(int id)
+        public async Task<IActionResult> DeleteCustomer(string id)
         {
 
-            if (id <= 0)
+            if (string.IsNullOrEmpty(id))
             {
                 return NotFound(new Response<Model?>
                 {
@@ -233,7 +233,7 @@ namespace Server.Controller
                     Data = null,
                     Error = new
                     {
-                        message = "Customer not found"
+                        message = "Customer tidak ditemukan"
                     }
                 });
             }
@@ -252,7 +252,7 @@ namespace Server.Controller
                     Data = null,
                     Error = new 
                     {
-                        message = "Customer not found"
+                        message = "Customer tidak ditemukan"
                     }
                 });
             }
@@ -270,7 +270,7 @@ namespace Server.Controller
             {
                 StatusCode = 200,
                 Ok = true,
-                Data = "Delete successful",
+                Data = "Berhasil menghapus customer",
                 Error = null
             });
 

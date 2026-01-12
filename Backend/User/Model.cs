@@ -4,13 +4,15 @@ namespace User;
 public class Model
 {
     [JsonPropertyName("id")]
-    public int? UserId { get; set; }
+    public required string UserId { get; set; }
     [JsonPropertyName("name")]
     public required string Name { get; set; }
     [JsonPropertyName("role")]
-    public required string Role { get; set; }
+    public required int Role { get; set; }
     [JsonPropertyName("email")]
     public required string Email { get; set; }
     [JsonPropertyName("password")]
     public required string Password { get; set; }
+    [JsonPropertyName("active")]
+    public required bool Active { get; set; }
 }

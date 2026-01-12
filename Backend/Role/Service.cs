@@ -1,6 +1,6 @@
 using Npgsql;
 
-namespace Customer;
+namespace Role;
 
 public class Service
 {
@@ -11,23 +11,22 @@ public class Service
         _connString = connString ?? throw new ArgumentNullException(nameof(connString));
     }
 
-    public async Task<string> CreateCustomer(Model model)
+    public async Task<string> CreateRole(Model model)
     {
         string sql = @"
-            INSERT INTO ms_customer (name, address, billing_account) 
-            VALUES (@name, @address, @billingaccount)
-            RETURNING customer_id
+            INSERT INTO role (role_id, name) 
+            VALUES (@id, @name)
+            RETURNING role_id
         ";
         using NpgsqlConnection conn = new(_connString);
         using NpgsqlCommand cmd = new(sql, conn);
         try
         {
             await conn.OpenAsync();
+            cmd.Parameters.AddWithValue("@id", model.RoleId);
             cmd.Parameters.AddWithValue("@name", model.Name);
-            cmd.Parameters.AddWithValue("@address", model.Address);
-            cmd.Parameters.AddWithValue("@billingaccount", model.BillingAccount);
             var result = await cmd.ExecuteScalarAsync();
-            if (result == null) throw new Exception("Failed to retrieve inserted customer ID");
+            if (result == null) throw new Exception("Failed to retrieve inserted user ID");
             var id = (string)result;
 
             return id;
@@ -38,12 +37,12 @@ public class Service
         }
     }
 
-    public async Task UpdateCustomer(string customerId, Model model)
+    public async Task UpdateRole(string roleId, Model model)
     {
         string sql = @"
-            UPDATE ms_customer
-            SET name = @name, address = @address, billing_account = @billingaccount
-            WHERE customer_id = @customerid
+            UPDATE role
+            SET name = @name
+            WHERE role_id = @id
         ";
         using NpgsqlConnection conn = new(_connString);
         using NpgsqlCommand cmd = new(sql, conn);
@@ -57,16 +56,14 @@ public class Service
             throw new Exception($"Database error: {ex.Message}");
         }
 
-        cmd.Parameters.AddWithValue("@customerid", customerId);
+        cmd.Parameters.AddWithValue("@id", roleId);
         cmd.Parameters.AddWithValue("@name", model.Name);
-        cmd.Parameters.AddWithValue("@address", model.Address);
-        cmd.Parameters.AddWithValue("@billingaccount", model.BillingAccount);
         try
         {
             var count = await cmd.ExecuteNonQueryAsync();
             if (count == 0)
             {
-                throw new Exception("No customer found");
+                throw new Exception("No role found");
             }
         }
         catch (Exception ex)
@@ -75,9 +72,9 @@ public class Service
         }
     }
 
-    public async Task DeleteCustomer(string customerId)
+    public async Task DeleteRole(string roleId)
     {
-        string sql = "DELETE FROM ms_customer WHERE customer_id = @customerid";
+        string sql = "DELETE FROM role WHERE role_id = @id and not exists (select 1 from users where role = @id)";
         using NpgsqlConnection conn = new(_connString);
         using NpgsqlCommand cmd = new(sql, conn);
         try
@@ -89,13 +86,13 @@ public class Service
             throw new Exception($"Database error: {ex.Message}");
         }
 
-        cmd.Parameters.AddWithValue("@customerid", customerId);
+        cmd.Parameters.AddWithValue("@id", roleId);
         try
         {
             var count = await cmd.ExecuteNonQueryAsync();
             if (count == 0)
             {
-                throw new Exception("No customer found");
+                throw new Exception("No role found");
             }
         }
         catch (Exception ex)
@@ -105,10 +102,10 @@ public class Service
 
     }
 
-    public async Task<List<Model>> GetCustomers()
+    public async Task<List<Model>> GetRoles()
     {
-        List<Model> customers = new();
-        string sql = "SELECT customer_id, name, address, billing_account FROM ms_customer ORDER BY customer_id";
+        List<Model> roles = new();
+        string sql = "SELECT role_id, name FROM role ORDER BY role_id";
         using NpgsqlConnection conn = new(_connString);
         using NpgsqlCommand cmd = new(sql, conn);
         try
@@ -119,40 +116,36 @@ public class Service
             {
                 Model model = new()
                 {
-                    CustomerId = reader.GetString(0),
-                    Name = reader.GetString(1),
-                    Address = reader.GetString(2),
-                    BillingAccount = reader.GetInt32(3)
+                    RoleId = reader.GetString(0),
+                    Name = reader.GetString(1)
                 };
-                customers.Add(model);
+                roles.Add(model);
             }
         }
         catch (Exception ex)
         {
             throw new Exception($"Database error: {ex.Message}");
         }
-        return customers;
+        return roles;
     }
 
-    public async Task<Model?> GetCustomerById(string customerId)
+    public async Task<Model?> GetRoleById(int roleId)
     {
         Model? model = null;
-        string sql = "SELECT customer_id, name, address, billing_account FROM ms_customer WHERE customer_id = @customerid";
+        string sql = "SELECT role_id, name FROM role WHERE role_id = @id";
         using NpgsqlConnection conn = new(_connString);
         using NpgsqlCommand cmd = new(sql, conn);
         try
         {
             await conn.OpenAsync();
-            cmd.Parameters.AddWithValue("@customerid", customerId);
+            cmd.Parameters.AddWithValue("@id", roleId);
             using NpgsqlDataReader reader = await cmd.ExecuteReaderAsync();
             if (await reader.ReadAsync())
             {
                 model = new()
                 {
-                    CustomerId = reader.GetString(0),
-                    Name = reader.GetString(1),
-                    Address = reader.GetString(2),
-                    BillingAccount = reader.GetInt32(3)
+                    RoleId = reader.GetString(0),
+                    Name = reader.GetString(1)
                 };
             }
         }

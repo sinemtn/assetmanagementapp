@@ -5,7 +5,7 @@ namespace Customer;
 public class Model
 {
     [JsonPropertyName("id")]
-    public int? CustomerId { get; set; }
+    public required string CustomerId { get; set; }
     [JsonPropertyName("name")]
     public required string Name { get; set; }
     [JsonPropertyName("address")]

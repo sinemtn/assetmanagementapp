@@ -25,7 +25,7 @@ namespace Server.Controller
         public AuthController(IConfiguration configuration)
         {
             _connString = configuration.GetConnectionString("DefaultConnection") ??
-                throw new ArgumentNullException("Connection string 'DefaultConnection' not found.");
+                throw new ArgumentNullException("Connection string 'DefaultConnection' tidak ditemukan.");
         }
 
         [HttpPost("login")]
@@ -39,7 +39,7 @@ namespace Server.Controller
                     StatusCode = 400,
                     Ok = false,
                     Data = null,
-                    Error = new { message = "Username or password invalid" }
+                    Error = new { message = "Username atau password tidak valid" }
                 });
             }
 
@@ -58,7 +58,7 @@ namespace Server.Controller
                         StatusCode = 401,
                         Ok = false,
                         Data = null,
-                        Error = new { message = "Authentication failed. Wrong username or password." }
+                        Error = new { message = "Autentikasi gagal. Username atau password salah." }
                     });
                 }
             }
@@ -77,7 +77,7 @@ namespace Server.Controller
             {
                 StatusCode = 200,
                 Ok = true,
-                Data = "Login successful",
+                Data = "Berhasil login",
                 Error = null
             });
         }
@@ -89,7 +89,7 @@ namespace Server.Controller
             {
                 StatusCode = 200,
                 Ok = true,
-                Data = "Logged out successfully",
+                Data = "Berhasil logout",
                 Error = null
             });
         }

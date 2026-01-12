@@ -1,42 +1,33 @@
 using Microsoft.AspNetCore.Mvc;
-using StockPrinter;
+using Role;
 using Server.Response;
 
 namespace Server.Controller
 {
-    [Route("api/stock/printer")]
+    [Route("api/role")]
     [ApiController]
-    public class StockPrinterController : ControllerBase
+    public class RoleController : ControllerBase
     {
         private readonly string _connString;
 
-        public StockPrinterController(IConfiguration configuration)
+        public RoleController(IConfiguration configuration)
         {
             _connString = configuration.GetConnectionString("DefaultConnection") ??
                 throw new ArgumentNullException("Connection string 'DefaultConnection' tidak ditemukan.");
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetStockPrinters([FromQuery] int page = 1, [FromQuery] int pageSize = 10)
+        public async Task<IActionResult> GetRoles()
         {
             try
             {
                 Service service = new(_connString);
-                var (stockPrinters, totalCount) = await service.GetStockPrinters(page, pageSize);
-                
-                var pagination = new Pagination
-                {
-                    CurrentPage = page,
-                    PageSize = pageSize,
-                    TotalItems = totalCount
-                };
-
+                var roles = await service.GetRoles();
                 return Ok(new Response<List<Model>?>
                 {
                     StatusCode = 200,
                     Ok = true,
-                    Data = stockPrinters,
-                    Pagination = pagination,
+                    Data = roles,
                     Error = null
                 });
             }
@@ -56,10 +47,10 @@ namespace Server.Controller
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetStockPrinterById(string id)
+        public async Task<IActionResult> GetRoleById(int id)
         {
-            Model? stockPrinter = null;
-            if (string.IsNullOrEmpty(id))
+            Model? role = null;
+            if (id <= 0)
             {
                 return NotFound(new Response<Model?>
                 {
@@ -68,14 +59,14 @@ namespace Server.Controller
                     Data = null,
                     Error = new
                     {
-                        message = "Stok printer tidak ditemukan"
+                        message = "Role tidak ditemukan"
                     }
                 });
             }
             Service service = new(_connString);
             try
             {
-                stockPrinter = await service.GetStockPrinterByMPNo(id);
+                role = await service.GetRoleById(id);
             }
             catch (Exception ex)
             {
@@ -90,7 +81,7 @@ namespace Server.Controller
                     }
                 });
             }
-            if (stockPrinter == null)
+            if (role == null)
             {
                 return NotFound(new Response<Model?>
                 {
@@ -99,7 +90,7 @@ namespace Server.Controller
                     Data = null,
                     Error = new 
                     {
-                        message = "Stok printer tidak ditemukan"
+                        message = "Role tidak ditemukan"
                     }
                 });
             }
@@ -107,7 +98,7 @@ namespace Server.Controller
             {
                 StatusCode = 200,
                 Ok = true,
-                Data = stockPrinter,
+                Data = role,
                 Error = null
             });
 
@@ -115,9 +106,8 @@ namespace Server.Controller
 
 
         [HttpPost]
-        public async Task<IActionResult> CreateStockPrinter([FromBody] Model model)
+        public async Task<IActionResult> CreateRole([FromBody] Model model)
         {
-
             if (model == null)
             {
                 return BadRequest(new Response<Model?>
@@ -127,7 +117,7 @@ namespace Server.Controller
                     Data = null,
                     Error = new 
                     {
-                        message = "Data stok printer tidak valid"
+                        message = "Data role tidak valid"
                     }
                 });
             }
@@ -135,7 +125,8 @@ namespace Server.Controller
             Service service = new(_connString);
             try
             {
-                model = await service.CreateStockPrinter(model);
+                var id = await service.CreateRole(model);
+                model.RoleId = id;
             }
             catch (Exception ex) when (ex.Message.Contains("duplicate key value"))
             {
@@ -146,7 +137,7 @@ namespace Server.Controller
                     Data = null,
                     Error = new 
                     {
-                        message = "Stok printer dengan ID yang sama sudah ada"
+                        message = "Role dengan ID yang sama sudah ada"
                     }
                 });
             }
@@ -173,7 +164,7 @@ namespace Server.Controller
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateStockPrinter(string id, [FromBody] Model model)
+        public async Task<IActionResult> UpdateRole(string id, [FromBody] Model model)
         {
 
             if (model == null || string.IsNullOrEmpty(id))
@@ -185,7 +176,7 @@ namespace Server.Controller
                     Data = null,
                     Error = new
                     {
-                        message = "Data stok printer atau ID tidak valid"
+                        message = "Role data tidak valid atau ID kosong"
                     }
                 });
             }
@@ -193,9 +184,10 @@ namespace Server.Controller
             Service service = new(_connString);
             try
             {
-                model = await service.UpdateStockPrinter(id, model);
+                await service.UpdateRole(id, model);
+                model.RoleId = id;
             }
-            catch (Exception ex) when (ex.Message.Contains("No stock printer found"))
+            catch (Exception ex) when (ex.Message.Contains("Role tidak ditemukan"))
             {
                 return NotFound(new Response<Model?>
                 {
@@ -204,7 +196,7 @@ namespace Server.Controller
                     Data = null,
                     Error = new 
                     {
-                        message = "Stok printer tidak ditemukan"
+                        message = "Role tidak ditemukan"
                     }
                 });
             }
@@ -228,8 +220,8 @@ namespace Server.Controller
 
         }
 
-        [HttpPatch("{id}")]
-        public async Task<IActionResult> DisableStockPrinter(string id)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteRole(string id)
         {
 
             if (string.IsNullOrEmpty(id))
@@ -241,7 +233,7 @@ namespace Server.Controller
                     Data = null,
                     Error = new
                     {
-                        message = "Stok printer tidak ditemukan"
+                        message = "Role tidak ditemukan"
                     }
                 });
             }
@@ -249,9 +241,9 @@ namespace Server.Controller
             Service service = new(_connString);
             try
             {
-                await service.DisableStockPrinter(id);
+                await service.DeleteRole(id);
             }
-            catch (Exception ex) when (ex.Message.Contains("No stock printer found"))
+            catch (Exception ex) when (ex.Message.Contains("No role found"))
             {
                 return NotFound(new Response<Model?>
                 {
@@ -260,7 +252,7 @@ namespace Server.Controller
                     Data = null,
                     Error = new 
                     {
-                        message = "Stok printer tidak ditemukan"
+                        message = "Role tidak ditemukan"
                     }
                 });
             }
@@ -278,7 +270,7 @@ namespace Server.Controller
             {
                 StatusCode = 200,
                 Ok = true,
-                Data = "Berhasil menonaktifkan stok printer",
+                Data = "Berhasil menghapus role",
                 Error = null
             });
 

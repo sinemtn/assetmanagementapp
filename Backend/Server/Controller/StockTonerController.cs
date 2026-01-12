@@ -13,7 +13,7 @@ namespace Server.Controller
         public StockTonerController(IConfiguration configuration)
         {
             _connString = configuration.GetConnectionString("DefaultConnection") ??
-                throw new ArgumentNullException("Connection string 'DefaultConnection' not found.");
+                throw new ArgumentNullException("Connection string 'DefaultConnection' tidak ditemukan.");
         }
 
         [HttpGet]
@@ -59,7 +59,7 @@ namespace Server.Controller
                     Data = null,
                     Error = new
                     {
-                        message = "Stock toner not found"
+                        message = "Stok toner tidak ditemukan"
                     }
                 });
             }
@@ -77,7 +77,7 @@ namespace Server.Controller
                     Data = null,
                     Error = new 
                     {
-                        message = "Stock toner not found"
+                        message = "Stok toner tidak ditemukan"
                     }
                 });
             }
@@ -103,7 +103,7 @@ namespace Server.Controller
                     Data = null,
                     Error = new 
                     {
-                        message = "Stock toner not found"
+                        message = "Stok toner tidak ditemukan"
                     }
                 });
             }
@@ -131,7 +131,7 @@ namespace Server.Controller
                     Data = null,
                     Error = new 
                     {
-                        message = "Invalid stock toner data"
+                        message = "Data stok toner tidak valid"
                     }
                 });
             }
@@ -150,7 +150,7 @@ namespace Server.Controller
                     Data = null,
                     Error = new 
                     {
-                        message = "Toner not found in master data"
+                        message = "Toner tidak ditemukan dalam data master"
                     }
                 });
             }
@@ -163,7 +163,7 @@ namespace Server.Controller
                     Data = null,
                     Error = new
                     {
-                        message = "Stock toner with the same ID already exists"
+                        message = "Stok toner dengan toner yang sama sudah ada"
                     }
                 });
             }

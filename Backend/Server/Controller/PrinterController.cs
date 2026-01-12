@@ -13,7 +13,7 @@ namespace Server.Controller
         public PrinterController(IConfiguration configuration)
         {
             _connString = configuration.GetConnectionString("DefaultConnection") ??
-                throw new ArgumentNullException("Connection string 'DefaultConnection' not found.");
+                throw new ArgumentNullException("Connection string 'DefaultConnection' tidak ditemukan.");
         }
 
         [HttpGet]
@@ -54,7 +54,7 @@ namespace Server.Controller
                     StatusCode = 404,
                     Ok = false,
                     Data = null,
-                    Error = new { message = "Printer ID not found" }
+                    Error = new { message = "ID printer tidak ditemukan" }
                 });
             }
             Service service = new(_connString);
@@ -79,7 +79,7 @@ namespace Server.Controller
                     StatusCode = 404,
                     Ok = false,
                     Data = null,
-                    Error = new { message = "Printer not found" }
+                    Error = new { message = "Printer tidak ditemukan" }
                 });
             }
             return Ok(new Response<Model?>
@@ -104,7 +104,7 @@ namespace Server.Controller
                     StatusCode = 400,
                     Ok = false,
                     Data = null,
-                    Error = new { message = "Invalid printer data" }
+                    Error = new { message = "Data printer tidak valid" }
                 });
             }
 
@@ -120,7 +120,7 @@ namespace Server.Controller
                     StatusCode = 409,
                     Ok = false,
                     Data = null,
-                    Error = new { message = "Printer with the same ID already exists" }
+                    Error = new { message = "Printer dengan ID yang sama sudah ada" }
                 });
             }
             catch (Exception ex)
@@ -157,7 +157,7 @@ namespace Server.Controller
                     StatusCode = 400,
                     Ok = false,
                     Data = null,
-                    Error = new { message = "Invalid printer data or ID" }
+                    Error = new { message = "Data printer atau ID tidak valid" }
                 });
             }
 
@@ -173,7 +173,7 @@ namespace Server.Controller
                     StatusCode = 404,
                     Ok = false,
                     Data = null,
-                    Error = new { message = "Printer ID not found" }
+                    Error = new { message = "ID printer tidak ditemukan" }
                 });
             }
             catch (Exception ex)
@@ -207,7 +207,7 @@ namespace Server.Controller
                     StatusCode = 404,
                     Ok = false,
                     Data = null,
-                    Error = new { message = "Printer ID not found" }
+                    Error = new { message = "ID printer tidak ditemukan" }
                 });
             }
 
@@ -223,7 +223,7 @@ namespace Server.Controller
                     StatusCode = 404,
                     Ok = false,
                     Data = null,
-                    Error = new { message = "Printer ID not found" }
+                    Error = new { message = "ID printer tidak ditemukan" }
                 });
             }
             catch (Exception ex)
@@ -240,7 +240,7 @@ namespace Server.Controller
             {
                 StatusCode = 200,
                 Ok = true,
-                Data = "Delete successful",
+                Data = "Berhasil menghapus printer",
                 Error = null
             });
             

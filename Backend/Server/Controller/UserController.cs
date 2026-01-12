@@ -13,7 +13,7 @@ namespace Server.Controller
         public UserController(IConfiguration configuration)
         {
             _connString = configuration.GetConnectionString("DefaultConnection") ??
-                throw new ArgumentNullException("Connection string 'DefaultConnection' not found.");
+                throw new ArgumentNullException("Connection string 'DefaultConnection' tidak ditemukan.");
         }
 
         [HttpGet]
@@ -59,7 +59,7 @@ namespace Server.Controller
                     Data = null,
                     Error = new
                     {
-                        message = "User not found"
+                        message = "User tidak ditemukan"
                     }
                 });
             }
@@ -90,7 +90,7 @@ namespace Server.Controller
                     Data = null,
                     Error = new 
                     {
-                        message = "User not found"
+                        message = "User tidak ditemukan"
                     }
                 });
             }
@@ -117,7 +117,7 @@ namespace Server.Controller
                     Data = null,
                     Error = new 
                     {
-                        message = "Invalid user data"
+                        message = "Data user tidak valid"
                     }
                 });
             }
@@ -125,8 +125,7 @@ namespace Server.Controller
             Service service = new(_connString);
             try
             {
-                var id = await service.CreateUser(model);
-                model.UserId = id;
+                await service.CreateUser(model);
             }
             catch (Exception ex) when (ex.Message.Contains("duplicate key value"))
             {
@@ -137,7 +136,7 @@ namespace Server.Controller
                     Data = null,
                     Error = new 
                     {
-                        message = "User with the same ID already exists"
+                        message = "User dengan ID yang sama sudah ada"
                     }
                 });
             }
@@ -164,10 +163,10 @@ namespace Server.Controller
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateUser(int id, [FromBody] Model model)
+        public async Task<IActionResult> UpdateUser(string id, [FromBody] Model model)
         {
 
-            if (model == null || id <= 0)
+            if (model == null || string.IsNullOrEmpty(id))
             {
                 return BadRequest(new Response<Model?>
                 {
@@ -176,7 +175,7 @@ namespace Server.Controller
                     Data = null,
                     Error = new
                     {
-                        message = "Invalid user data or ID"
+                        message = "Data user tidak valid atau ID kosong"
                     }
                 });
             }
@@ -196,7 +195,7 @@ namespace Server.Controller
                     Data = null,
                     Error = new 
                     {
-                        message = "User not found"
+                        message = "User tidak ditemukan"
                     }
                 });
             }
@@ -233,7 +232,7 @@ namespace Server.Controller
                     Data = null,
                     Error = new
                     {
-                        message = "User not found"
+                        message = "User tidak ditemukan"
                     }
                 });
             }
@@ -252,7 +251,7 @@ namespace Server.Controller
                     Data = null,
                     Error = new 
                     {
-                        message = "User not found"
+                        message = "User tidak ditemukan"
                     }
                 });
             }
@@ -270,7 +269,7 @@ namespace Server.Controller
             {
                 StatusCode = 200,
                 Ok = true,
-                Data = "Delete successful",
+                Data = "Berhasil menghapus user",
                 Error = null
             });
 
