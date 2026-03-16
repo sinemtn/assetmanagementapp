@@ -59,7 +59,7 @@ public class Service
         }
         else
         {
-            throw new Exception("No stock printer found");
+            throw new Exception("Stock printer failed to be created");
         }
     }
 

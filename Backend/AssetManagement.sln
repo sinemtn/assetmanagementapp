@@ -23,6 +23,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockToner", "StockToner\St
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Role", "Role\Role.csproj", "{C871F3D9-3C61-4E34-8FEA-DFD5101E3B96}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Supplier", "Supplier\Supplier.csproj", "{8DDE228F-5395-4CED-82CC-C6768CEF7323}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assignment", "Assignment\Assignment.csproj", "{EF17E64C-B5B0-42B0-87FA-6B9BDB418936}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -72,5 +76,13 @@ Global
 		{C871F3D9-3C61-4E34-8FEA-DFD5101E3B96}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C871F3D9-3C61-4E34-8FEA-DFD5101E3B96}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C871F3D9-3C61-4E34-8FEA-DFD5101E3B96}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8DDE228F-5395-4CED-82CC-C6768CEF7323}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DDE228F-5395-4CED-82CC-C6768CEF7323}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DDE228F-5395-4CED-82CC-C6768CEF7323}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DDE228F-5395-4CED-82CC-C6768CEF7323}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF17E64C-B5B0-42B0-87FA-6B9BDB418936}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF17E64C-B5B0-42B0-87FA-6B9BDB418936}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF17E64C-B5B0-42B0-87FA-6B9BDB418936}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF17E64C-B5B0-42B0-87FA-6B9BDB418936}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

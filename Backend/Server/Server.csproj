@@ -22,6 +22,8 @@
 	  <ProjectReference Include="..\Customer\Customer.csproj" />
 	  <ProjectReference Include="..\StockToner\StockToner.csproj" />
 	  <ProjectReference Include="..\Role\Role.csproj" />
+	  <ProjectReference Include="..\Supplier\Supplier.csproj" />
+	  <ProjectReference Include="..\Assignment\Assignment.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
