@@ -99,7 +99,7 @@ public class Service
         }
     }
 
-    public async Task ChangeStatus(string assignmentNo, string newStatus, string changedBy)
+    public async Task ChangeStatus(string assignmentNo, string newStatus, string changedBy = "")
     {
         var validStatuses = new[] { "pending", "in progress", "completed", "validated", "authorized" };
         if (!validStatuses.Contains(newStatus))
@@ -138,10 +138,11 @@ public class Service
     public async Task<AssignmentDetailModel> GetAssignmentByNo(string assignmentNo)
     {
         string sql = @"
-            SELECT assignment_no, complaint_no, task, customer, pic, status, mp_no,
+            SELECT assignment_no, complaint_no, task, customer, customer.name, customer.address, pic, status, mp_no,
                    validated_at, validated_by, authorized_at, authorized_by,
                    created_at, updated_at
             FROM assignment
+            JOIN customer ON assignment.customer = customer.id
             WHERE assignment_no = @assignmentNo
         ";
         using NpgsqlConnection conn = new(_connString);
@@ -158,16 +159,20 @@ public class Service
                     AssignmentNo = reader.GetString(0),
                     ComplaintNo = reader.GetString(1),
                     Task = reader.GetString(2),
-                    Customer = reader.GetString(3),
-                    PIC = reader.GetString(4),
-                    Status = reader.GetString(5),
-                    MPNo = reader.GetString(6),
-                    ValidatedAt = reader.IsDBNull(7) ? null : reader.GetDateTime(7),
-                    ValidatedBy = reader.IsDBNull(8) ? null : reader.GetString(8),
-                    AuthorizedAt = reader.IsDBNull(9) ? null : reader.GetDateTime(9),
-                    AuthorizedBy = reader.IsDBNull(10) ? null : reader.GetString(10),
-                    CreatedAt = reader.GetDateTime(11),
-                    UpdatedAt = reader.GetDateTime(12)
+                    Customer = new AssignmentCustomerModel {
+                        Id = reader.GetString(3),
+                        Name = reader.GetString(4),
+                        Address = reader.GetString(5)
+                    },
+                    PIC = reader.GetString(6),
+                    Status = reader.GetString(7),
+                    MPNo = reader.GetString(8),
+                    ValidatedAt = reader.IsDBNull(9) ? null : reader.GetDateTime(9),
+                    ValidatedBy = reader.IsDBNull(10) ? null : reader.GetString(10),
+                    AuthorizedAt = reader.IsDBNull(11) ? null : reader.GetDateTime(11),
+                    AuthorizedBy = reader.IsDBNull(12) ? null : reader.GetString(12),
+                    CreatedAt = reader.GetDateTime(13),
+                    UpdatedAt = reader.GetDateTime(14)
                 };
             }
             else

@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Assignment;
 using Server.Response;
+using Server.Request;
 
 namespace Server.Controller
 {
@@ -227,10 +228,10 @@ namespace Server.Controller
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteSupplier(string id)
+        public async Task<IActionResult> ChangeStatus(string id, [FromBody] StatusRequest status)
         {
 
-            if (string.IsNullOrEmpty(id))
+            if (string.IsNullOrEmpty(id) || string.IsNullOrEmpty(status?.Status))
             {
                 return NotFound(new Response<AssignmentDetailModel?>
                 {
@@ -247,7 +248,7 @@ namespace Server.Controller
             Service service = new(_connString);
             try
             {
-                await service.DeleteAssignment(id);
+                await service.ChangeStatus(id, status.Status);
             }
             catch (Exception ex) when (ex.Message.Contains("No assignment found"))
             {
@@ -276,7 +277,7 @@ namespace Server.Controller
             {
                 StatusCode = 200,
                 Ok = true,
-                Data = "Berhasil menghapus supplier",
+                Data = $"Status surat jalan berhasil diubah menjadi {status.Status}",
                 Error = null
             });
 

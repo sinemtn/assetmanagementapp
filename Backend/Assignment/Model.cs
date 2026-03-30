@@ -34,7 +34,7 @@ public class AssignmentDetailModel
     [JsonPropertyName("status")]
     public required string Status { get; set; }
     [JsonPropertyName("customer")]
-    public required string Customer { get; set; }
+    public required AssignmentCustomerModel Customer { get; set; }
     [JsonPropertyName("task")]
     public required string Task { get; set; }
     [JsonPropertyName("assignmentNo")]
@@ -57,6 +57,18 @@ public class AssignmentDetailModel
     public DateTime? AuthorizedAt { get; set; }
     [JsonPropertyName("authorizedBy")]
     public string? AuthorizedBy { get; set; }
+}
+
+public class AssignmentCustomerModel
+{
+    [JsonPropertyName("id")]
+    public required string Id { get; set; }
+
+    [JsonPropertyName("name")]
+    public required string Name { get; set; }
+
+    [JsonPropertyName("address")]
+    public required string Address { get; set; }
 }
 
 
