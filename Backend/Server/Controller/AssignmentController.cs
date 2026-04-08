@@ -56,10 +56,10 @@ namespace Server.Controller
         [HttpGet("{id}")]
         public async Task<IActionResult> GetAssignmentByNo(string id)
         {
-            AssignmentDetailModel? assignment = null;
+            AssignmentModel? assignment = null;
             if (string.IsNullOrEmpty(id))
             {
-                return NotFound(new Response<AssignmentDetailModel?>
+                return NotFound(new Response<AssignmentModel?>
                 {
                     StatusCode = 404,
                     Ok = false,
@@ -77,7 +77,7 @@ namespace Server.Controller
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new Response<AssignmentDetailModel?>
+                return StatusCode(500, new Response<AssignmentModel?>
                 {
                     StatusCode = 500,
                     Ok = false,
@@ -90,7 +90,7 @@ namespace Server.Controller
             }
             if (assignment == null)
             {
-                return NotFound(new Response<AssignmentDetailModel?>
+                return NotFound(new Response<AssignmentModel?>
                 {
                     StatusCode = 404,
                     Ok = false,
@@ -101,7 +101,7 @@ namespace Server.Controller
                     }
                 });
             }
-            return Ok(new Response<AssignmentDetailModel?>
+            return Ok(new Response<AssignmentModel?>
             {
                 StatusCode = 200,
                 Ok = true,
@@ -113,11 +113,11 @@ namespace Server.Controller
 
 
         [HttpPost]
-        public async Task<IActionResult> CreateAssignment([FromBody] AssignmentDetailModel model)
+        public async Task<IActionResult> CreateAssignment([FromBody] AssignmentRequest request)
         {
-            if (model == null)
+            if (request == null)
             {
-                return BadRequest(new Response<AssignmentDetailModel?>
+                return BadRequest(new Response<AssignmentModel?>
                 {
                     StatusCode = 400,
                     Ok = false,
@@ -129,7 +129,27 @@ namespace Server.Controller
                 });
             }
 
+            AssignmentModel model = new()
+            {
+                MPNo = request.MPNo,
+                Status = request.Status,
+                Customer = new Customer.Model { CustomerId = request.Customer },
+                Task = request.Task,
+                PIC = request.PIC,
+                ComplaintNo = request.ComplaintNo,
+                Items = [.. request.Items.Select(i => new ItemModel
+                {
+                    Type = i.Type,
+                    ItemId = i.ItemId,
+                    SerialNumber = i.SerialNumber,
+                    Quantity = i.Quantity
+                })],
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow
+            };
+
             Service service = new(_connString);
+
             try
             {
                 var id = await service.CreateAssignment(model);
@@ -137,7 +157,7 @@ namespace Server.Controller
             }
             catch (Exception ex) when (ex.Message.Contains("duplicate key value"))
             {
-                return Conflict(new Response<AssignmentDetailModel?>
+                return Conflict(new Response<AssignmentModel?>
                 {
                     StatusCode = 409,
                     Ok = false,
@@ -150,7 +170,7 @@ namespace Server.Controller
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new Response<AssignmentDetailModel?>
+                return StatusCode(500, new Response<AssignmentModel?>
                 {
                     StatusCode = 500,
                     Ok = false,
@@ -159,7 +179,7 @@ namespace Server.Controller
                 });
             }
             
-            return Ok(new Response<AssignmentDetailModel?>
+            return Ok(new Response<AssignmentModel?>
             {
                 StatusCode = 201,
                 Ok = true,
@@ -171,12 +191,12 @@ namespace Server.Controller
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateAssignment(string id, [FromBody] AssignmentDetailModel model)
+        public async Task<IActionResult> UpdateAssignment(string id, [FromBody] AssignmentRequest request)
         {
 
-            if (model == null || string.IsNullOrEmpty(id))
+            if (request == null || string.IsNullOrEmpty(id))
             {
-                return BadRequest(new Response<AssignmentDetailModel?>
+                return BadRequest(new Response<AssignmentModel?>
                 {
                     StatusCode = 400,
                     Ok = false,
@@ -187,6 +207,24 @@ namespace Server.Controller
                     }
                 });
             }
+            
+            AssignmentModel model = new()
+            {
+                MPNo = request.MPNo,
+                Status = request.Status,
+                Customer = new Customer.Model { CustomerId = request.Customer },
+                Task = request.Task,
+                PIC = request.PIC,
+                ComplaintNo = request.ComplaintNo,
+                Items = [.. request.Items.Select(i => new ItemModel
+                {
+                    Type = i.Type,
+                    ItemId = i.ItemId,
+                    SerialNumber = i.SerialNumber,
+                    Quantity = i.Quantity
+                })],
+                UpdatedAt = DateTime.UtcNow
+            };
 
             Service service = new(_connString);
             try
@@ -196,7 +234,7 @@ namespace Server.Controller
             }
             catch (Exception ex) when (ex.Message.Contains("Surat jalan tidak ditemukan"))
             {
-                return NotFound(new Response<AssignmentDetailModel?>
+                return NotFound(new Response<AssignmentModel?>
                 {
                     StatusCode = 404,
                     Ok = false,
@@ -209,7 +247,7 @@ namespace Server.Controller
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new Response<AssignmentDetailModel?>
+                return StatusCode(500, new Response<AssignmentModel?>
                 {
                     StatusCode = 500,
                     Ok = false,
@@ -217,7 +255,7 @@ namespace Server.Controller
                     Error = new { message = ex.Message }
                 });
             }
-            return Ok(new Response<AssignmentDetailModel?>
+            return Ok(new Response<AssignmentModel?>
             {
                 StatusCode = 200,
                 Ok = true,
@@ -233,7 +271,7 @@ namespace Server.Controller
 
             if (string.IsNullOrEmpty(id) || string.IsNullOrEmpty(status?.Status))
             {
-                return NotFound(new Response<AssignmentDetailModel?>
+                return NotFound(new Response<AssignmentModel?>
                 {
                     StatusCode = 404,
                     Ok = false,
@@ -252,7 +290,7 @@ namespace Server.Controller
             }
             catch (Exception ex) when (ex.Message.Contains("No assignment found"))
             {
-                return NotFound(new Response<AssignmentDetailModel?>
+                return NotFound(new Response<AssignmentModel?>
                 {
                     StatusCode = 404,
                     Ok = false,
@@ -265,7 +303,7 @@ namespace Server.Controller
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new Response<AssignmentDetailModel?>
+                return StatusCode(500, new Response<AssignmentModel?>
                 {
                     StatusCode = 500,
                     Ok = false,

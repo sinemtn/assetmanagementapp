@@ -23,9 +23,9 @@ public class Service
         try
         {
             await conn.OpenAsync();
-            cmd.Parameters.AddWithValue("@name", model.Name);
-            cmd.Parameters.AddWithValue("@address", model.Address);
-            cmd.Parameters.AddWithValue("@billingaccount", model.BillingAccount);
+            cmd.Parameters.AddWithValue("@name", model.Name ?? string.Empty);
+            cmd.Parameters.AddWithValue("@address", model.Address ?? string.Empty);
+            cmd.Parameters.AddWithValue("@billingaccount", model.BillingAccount ?? 0);
             var result = await cmd.ExecuteScalarAsync();
             if (result == null) throw new Exception("Failed to retrieve inserted customer ID");
             var id = (string)result;
@@ -58,9 +58,9 @@ public class Service
         }
 
         cmd.Parameters.AddWithValue("@customerid", customerId);
-        cmd.Parameters.AddWithValue("@name", model.Name);
-        cmd.Parameters.AddWithValue("@address", model.Address);
-        cmd.Parameters.AddWithValue("@billingaccount", model.BillingAccount);
+        cmd.Parameters.AddWithValue("@name", model.Name ?? string.Empty);
+        cmd.Parameters.AddWithValue("@address", model.Address ?? string.Empty);
+        cmd.Parameters.AddWithValue("@billingaccount", model.BillingAccount ?? 0);
         try
         {
             var count = await cmd.ExecuteNonQueryAsync();
@@ -120,9 +120,9 @@ public class Service
                 Model model = new()
                 {
                     CustomerId = reader.GetString(0),
-                    Name = reader.GetString(1),
-                    Address = reader.GetString(2),
-                    BillingAccount = reader.GetInt32(3)
+                    Name = reader.IsDBNull(1) ? null : reader.GetString(1),
+                    Address = reader.IsDBNull(2) ? null : reader.GetString(2),
+                    BillingAccount = reader.IsDBNull(3) ? null : reader.GetInt32(3)
                 };
                 customers.Add(model);
             }

@@ -3,7 +3,9 @@ using Server.Response;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var port = builder.Configuration.GetValue<int>("Port") == 0 ? 5000 : builder.Configuration.GetValue<int>("Port");
+var port = Environment.GetEnvironmentVariable("PORT")
+    ?? builder.Configuration.GetValue<string>("Port")
+    ?? "5000";
 builder.WebHost.UseUrls($"http://0.0.0.0:{port}");
 
 

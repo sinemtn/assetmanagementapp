@@ -31,7 +31,7 @@ public class Service
             cmd.Parameters.AddWithValue("@complaintId", model.ComplaintNo);
             cmd.Parameters.AddWithValue("@noMp", model.MPNo);
             cmd.Parameters.AddWithValue("@description", model.Description);
-            cmd.Parameters.AddWithValue("@customer", model.Customer);
+            cmd.Parameters.AddWithValue("@customer", model.Customer?.CustomerId ?? string.Empty);
             cmd.Parameters.AddWithValue("@sales", model.Sales);
             cmd.Parameters.AddWithValue("@status", model.Status);
 
@@ -64,7 +64,7 @@ public class Service
             cmd.Parameters.AddWithValue("@complaintId", complaintId);
             cmd.Parameters.AddWithValue("@noMp", model.MPNo);
             cmd.Parameters.AddWithValue("@description", model.Description);
-            cmd.Parameters.AddWithValue("@customer", model.Customer);
+            cmd.Parameters.AddWithValue("@customer", model.Customer?.CustomerId ?? string.Empty);
             cmd.Parameters.AddWithValue("@sales", model.Sales);
             cmd.Parameters.AddWithValue("@status", model.Status);
 

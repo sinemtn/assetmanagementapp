@@ -11,7 +11,7 @@ public class Service
         _connString = connString ?? throw new ArgumentNullException(nameof(connString));
     }
     
-    public async Task<string> CreateAssignment(AssignmentDetailModel model)
+    public async Task<string> CreateAssignment(AssignmentModel model)
     {
         string sql = @"
             INSERT INTO assignment (
@@ -32,7 +32,7 @@ public class Service
             await conn.OpenAsync();
             cmd.Parameters.AddWithValue("@complaintNo", model.ComplaintNo);
             cmd.Parameters.AddWithValue("@task", model.Task);
-            cmd.Parameters.AddWithValue("@customer", model.Customer);
+            cmd.Parameters.AddWithValue("@customer", model.Customer?.CustomerId ?? (object)DBNull.Value);
             cmd.Parameters.AddWithValue("@pic", model.PIC);
             cmd.Parameters.AddWithValue("@status", model.Status);
             cmd.Parameters.AddWithValue("@hasItems", model.Items.Length > 0);
@@ -52,7 +52,7 @@ public class Service
         }
     }
 
-    public async Task<AssignmentDetailModel> UpdateAssignment(string assignmentNo, AssignmentDetailModel model)
+    public async Task<AssignmentModel> UpdateAssignment(string assignmentNo, AssignmentModel model)
     {
         string sql = @"
             UPDATE assignment SET
@@ -76,7 +76,7 @@ public class Service
             await conn.OpenAsync();
             cmd.Parameters.AddWithValue("@complaintNo", model.ComplaintNo);
             cmd.Parameters.AddWithValue("@task", model.Task);
-            cmd.Parameters.AddWithValue("@customer", model.Customer);
+            cmd.Parameters.AddWithValue("@customer", model.Customer?.CustomerId ?? (object)DBNull.Value);
             cmd.Parameters.AddWithValue("@pic", model.PIC);
             cmd.Parameters.AddWithValue("@status", model.Status);
             cmd.Parameters.AddWithValue("@hasItems", model.Items.Length > 0);
@@ -135,10 +135,10 @@ public class Service
         }
     }
 
-    public async Task<AssignmentDetailModel> GetAssignmentByNo(string assignmentNo)
+    public async Task<AssignmentModel> GetAssignmentByNo(string assignmentNo)
     {
         string sql = @"
-            SELECT assignment_no, complaint_no, task, customer, customer.name, customer.address, pic, status, mp_no,
+            SELECT assignment_no, complaint_no, task, customer, customer.name, customer.address, customer.billing_account, pic, status, mp_no,
                    validated_at, validated_by, authorized_at, authorized_by,
                    created_at, updated_at
             FROM assignment
@@ -154,25 +154,27 @@ public class Service
             using NpgsqlDataReader reader = await cmd.ExecuteReaderAsync();
             if (await reader.ReadAsync())
             {
-                return new AssignmentDetailModel
+                return new AssignmentModel
                 {
                     AssignmentNo = reader.GetString(0),
                     ComplaintNo = reader.GetString(1),
                     Task = reader.GetString(2),
-                    Customer = new AssignmentCustomerModel {
-                        Id = reader.GetString(3),
+                    Customer = new Customer.Model
+                    {
+                        CustomerId = reader.GetString(3),
                         Name = reader.GetString(4),
-                        Address = reader.GetString(5)
+                        Address = reader.GetString(5),
+                        BillingAccount = reader.GetInt32(6)
                     },
-                    PIC = reader.GetString(6),
-                    Status = reader.GetString(7),
-                    MPNo = reader.GetString(8),
-                    ValidatedAt = reader.IsDBNull(9) ? null : reader.GetDateTime(9),
-                    ValidatedBy = reader.IsDBNull(10) ? null : reader.GetString(10),
-                    AuthorizedAt = reader.IsDBNull(11) ? null : reader.GetDateTime(11),
-                    AuthorizedBy = reader.IsDBNull(12) ? null : reader.GetString(12),
-                    CreatedAt = reader.GetDateTime(13),
-                    UpdatedAt = reader.GetDateTime(14)
+                    PIC = reader.GetString(7),
+                    Status = reader.GetString(8),
+                    MPNo = reader.GetString(9),
+                    ValidatedAt = reader.IsDBNull(10) ? null : reader.GetDateTime(10),
+                    ValidatedBy = reader.IsDBNull(11) ? null : reader.GetString(11),
+                    AuthorizedAt = reader.IsDBNull(12) ? null : reader.GetDateTime(12),
+                    AuthorizedBy = reader.IsDBNull(13) ? null : reader.GetString(13),
+                    CreatedAt = reader.GetDateTime(14),
+                    UpdatedAt = reader.GetDateTime(15)
                 };
             }
             else
@@ -190,8 +192,11 @@ public class Service
     {
         List<AssignmentModel> assignments = new();
         string sql = @"
-            SELECT assignment_no, customer, task, pic, status
+            SELECT assignment_no, customer, customer.name, customer.address, customer.billing_account, task, pic, status, mp_no,
+                   validated_at, validated_by, authorized_at, authorized_by,
+                   created_at, updated_at
             FROM assignment
+            JOIN customer ON assignment.customer = customer.id
             ORDER BY created_at DESC
             LIMIT @pageSize OFFSET @offset
         ";
@@ -209,11 +214,24 @@ public class Service
             {
                 assignments.Add(new AssignmentModel
                 {
-                    AssigmentNo = reader.GetString(0),
-                    Customer = reader.GetString(1),
-                    Task = reader.GetString(2),
-                    PIC = reader.GetString(3),
-                    Status = reader.GetString(4)
+                    AssignmentNo = reader.GetString(0),
+                    Customer = new Customer.Model
+                    {
+                        CustomerId = reader.GetString(1),
+                        Name = reader.GetString(2),
+                        Address = reader.GetString(3),
+                        BillingAccount = reader.GetInt32(4)
+                    },
+                    Task = reader.GetString(5),
+                    PIC = reader.GetString(6),
+                    Status = reader.GetString(7),
+                    MPNo = reader.GetString(8),
+                    ValidatedAt = reader.IsDBNull(9) ? null : reader.GetDateTime(9),
+                    ValidatedBy = reader.IsDBNull(10) ? null : reader.GetString(10),
+                    AuthorizedAt = reader.IsDBNull(11) ? null : reader.GetDateTime(11),
+                    AuthorizedBy = reader.IsDBNull(12) ? null : reader.GetString(12),
+                    CreatedAt = reader.GetDateTime(13),
+                    UpdatedAt = reader.GetDateTime(14)
                 });
             }
             reader.Close();

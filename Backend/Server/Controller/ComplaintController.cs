@@ -18,9 +18,9 @@ namespace Server.Controller
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateComplaint([FromBody] ComplaintModel model)
+        public async Task<IActionResult> CreateComplaint([FromBody] ComplaintRequest request)
         {
-            if (model == null)
+            if (request == null)
             {
                 return BadRequest(new Response<ComplaintModel?>
                 {
@@ -33,6 +33,16 @@ namespace Server.Controller
                     }
                 });
             }
+
+            ComplaintModel model = new()
+            {
+                ComplaintNo = request.ComplaintNo,
+                MPNo = request.MPNo,
+                Description = request.Description,
+                Customer = new Customer.Model { CustomerId = request.Customer },
+                Sales = request.Sales,
+                Status = request.Status
+            };
 
             Service service = new(_connString);
             try
@@ -74,9 +84,9 @@ namespace Server.Controller
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateComplaint(string id, [FromBody] ComplaintModel model)
+        public async Task<IActionResult> UpdateComplaint(string id, [FromBody] ComplaintRequest request)
         {
-            if (model == null || string.IsNullOrEmpty(id))
+            if (request == null || string.IsNullOrEmpty(id))
             {
                 return BadRequest(new Response<ComplaintModel?>
                 {
@@ -89,6 +99,16 @@ namespace Server.Controller
                     }
                 });
             }
+
+            ComplaintModel model = new()
+            {
+                ComplaintNo = id,
+                MPNo = request.MPNo,
+                Description = request.Description,
+                Customer = new Customer.Model { CustomerId = request.Customer },
+                Sales = request.Sales,
+                Status = request.Status
+            };
 
             Service service = new(_connString);
             try
