@@ -15,15 +15,15 @@ public class Service
     {
         string sql = @"
             INSERT INTO assignment (
-                assignment_no, complaint_no, task, customer, pic, status, has_items,
+                complaint, task, customer, pic, status, has_items,
                 validated_at, validated_by, authorized_at, authorized_by,
                 created_at, updated_at, mp_no
             ) VALUES (
-                nextval('assignment_no_seq'), @complaintNo, @task, @customer, @pic, @status, @hasItems,
+                @complaintNo, @task, @customer, @pic, @status, @hasItems,
                 @validatedAt, @validatedBy, @authorizedAt, @authorizedBy,
                 NOW(), NOW(), @mpNo
             )
-            RETURNING assignment_no
+            RETURNING assigment_id
         ";
         using NpgsqlConnection conn = new(_connString);
         using NpgsqlCommand cmd = new(sql, conn);
@@ -56,7 +56,7 @@ public class Service
     {
         string sql = @"
             UPDATE assignment SET
-                complaint_no = @complaintNo,
+                complaint = @complaintNo,
                 task = @task,
                 customer = @customer,
                 pic = @pic,
@@ -67,7 +67,7 @@ public class Service
                 authorized_at = @authorizedAt,
                 authorized_by = @authorizedBy,
                 updated_at = NOW()
-            WHERE assignment_no = @assignmentNo
+            WHERE assigment_id = @assignmentNo
         ";
         using NpgsqlConnection conn = new(_connString);
         using NpgsqlCommand cmd = new(sql, conn);
@@ -113,7 +113,7 @@ public class Service
                 validated_by = CASE WHEN @status = 'validated' THEN @changedBy ELSE validated_by END,
                 authorized_at = CASE WHEN @status = 'authorized' THEN NOW() ELSE authorized_at END,
                 authorized_by = CASE WHEN @status = 'authorized' THEN @changedBy ELSE authorized_by END
-            WHERE assignment_no = @assignmentNo
+            WHERE assigment_id = @assignmentNo
         ";
         using NpgsqlConnection conn = new(_connString);
         using NpgsqlCommand cmd = new(sql, conn);
@@ -138,12 +138,12 @@ public class Service
     public async Task<AssignmentModel> GetAssignmentByNo(string assignmentNo)
     {
         string sql = @"
-            SELECT assignment_no, complaint_no, task, customer, customer.name, customer.address, customer.billing_account, pic, status, mp_no,
-                   validated_at, validated_by, authorized_at, authorized_by,
-                   created_at, updated_at
-            FROM assignment
-            JOIN customer ON assignment.customer = customer.id
-            WHERE assignment_no = @assignmentNo
+            SELECT a.assigment_id, a.complaint, a.task, a.customer, c.name, c.address, c.billing_account, a.pic, a.status, a.mp_no,
+                   a.validated_at, a.validated_by, a.authorized_at, a.authorized_by,
+                   a.created_at, a.updated_at
+            FROM assignment a
+            JOIN ms_customer c ON a.customer = c.customer_id
+            WHERE a.assigment_id = @assignmentNo
         ";
         using NpgsqlConnection conn = new(_connString);
         using NpgsqlCommand cmd = new(sql, conn);
@@ -157,14 +157,14 @@ public class Service
                 return new AssignmentModel
                 {
                     AssignmentNo = reader.GetString(0),
-                    ComplaintNo = reader.GetString(1),
+                    ComplaintNo = reader.IsDBNull(1) ? string.Empty : reader.GetString(1),
                     Task = reader.GetString(2),
                     Customer = new Customer.Model
                     {
                         CustomerId = reader.GetString(3),
                         Name = reader.GetString(4),
-                        Address = reader.GetString(5),
-                        BillingAccount = reader.GetInt32(6)
+                        Address = reader.IsDBNull(5) ? null : reader.GetString(5),
+                        BillingAccount = reader.IsDBNull(6) ? null : reader.GetInt32(6)
                     },
                     PIC = reader.GetString(7),
                     Status = reader.GetString(8),
@@ -192,12 +192,12 @@ public class Service
     {
         List<AssignmentModel> assignments = new();
         string sql = @"
-            SELECT assignment_no, customer, customer.name, customer.address, customer.billing_account, task, pic, status, mp_no,
-                   validated_at, validated_by, authorized_at, authorized_by,
-                   created_at, updated_at
-            FROM assignment
-            JOIN customer ON assignment.customer = customer.id
-            ORDER BY created_at DESC
+            SELECT a.assigment_id, a.customer, c.name, c.address, c.billing_account, a.task, a.pic, a.status, a.mp_no,
+                   a.validated_at, a.validated_by, a.authorized_at, a.authorized_by,
+                   a.created_at, a.updated_at
+            FROM assignment a
+            JOIN ms_customer c ON a.customer = c.customer_id
+            ORDER BY a.created_at DESC
             LIMIT @pageSize OFFSET @offset
         ";
         string countSql = "SELECT COUNT(*) FROM assignment";
@@ -219,8 +219,8 @@ public class Service
                     {
                         CustomerId = reader.GetString(1),
                         Name = reader.GetString(2),
-                        Address = reader.GetString(3),
-                        BillingAccount = reader.GetInt32(4)
+                        Address = reader.IsDBNull(3) ? null : reader.GetString(3),
+                        BillingAccount = reader.IsDBNull(4) ? null : reader.GetInt32(4)
                     },
                     Task = reader.GetString(5),
                     PIC = reader.GetString(6),
@@ -247,7 +247,7 @@ public class Service
 
     public async Task DeleteAssignment(string assignmentNo)
     {
-        string sql = "DELETE FROM assignment WHERE assignment_no = @assignmentNo";
+        string sql = "DELETE FROM assignment WHERE assigment_id = @assignmentNo";
         using NpgsqlConnection conn = new(_connString);
         using NpgsqlCommand cmd = new(sql, conn);
         try

@@ -265,7 +265,7 @@ namespace Server.Controller
 
         }
 
-        [HttpDelete("{id}")]
+        [HttpPatch("{id}")]
         public async Task<IActionResult> ChangeStatus(string id, [FromBody] StatusRequest status)
         {
 
@@ -288,7 +288,7 @@ namespace Server.Controller
             {
                 await service.ChangeStatus(id, status.Status);
             }
-            catch (Exception ex) when (ex.Message.Contains("No assignment found"))
+            catch (Exception ex) when (ex.Message.Contains("Assignment not found"))
             {
                 return NotFound(new Response<AssignmentModel?>
                 {

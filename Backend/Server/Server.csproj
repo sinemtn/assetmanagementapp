@@ -6,6 +6,11 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 	</PropertyGroup>
 
+	<PropertyGroup Condition="'$(Configuration)'=='Release'">
+		<DebugType>none</DebugType>
+		<DebugSymbols>false</DebugSymbols>
+	</PropertyGroup>
+
 	<ItemGroup>
 		<Content Include="wwwroot\**">
 			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
@@ -25,6 +30,7 @@
 	  <ProjectReference Include="..\Supplier\Supplier.csproj" />
 	  <ProjectReference Include="..\Assignment\Assignment.csproj" />
 	  <ProjectReference Include="..\Complaint\Complaint.csproj" />
+	  <ProjectReference Include="..\StockSparepart\StockSparepart.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -33,5 +39,6 @@
 		<PackageReference Include="Npgsql" Version="9.0.3" />
 		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.14.0" />
 	</ItemGroup>
+	
 
 </Project>

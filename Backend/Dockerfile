@@ -17,6 +17,7 @@ COPY Role/Role.csproj ./Role/
 COPY Supplier/Supplier.csproj ./Supplier/
 COPY Assignment/Assignment.csproj ./Assignment/
 COPY Complaint/Complaint.csproj ./Complaint/
+COPY StockSparepart/StockSparepart.csproj ./StockSparepart/
 RUN dotnet restore
 
 # Copy everything else and publish the Server project

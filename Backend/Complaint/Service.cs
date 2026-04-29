@@ -11,14 +11,101 @@ public class Service
         _connString = connString ?? throw new ArgumentNullException(nameof(connString));
     }
 
+    public async Task<(List<ComplaintModel>, int)> GetComplaints(int page, int pageSize)
+    {
+        List<ComplaintModel> complaints = new();
+        string sql = @"
+            SELECT c.complaint_id, c.mp_no, c.description, c.customer, cust.name, c.sales, c.status,
+                   c.resolved_at, c.created_at, c.updated_at
+            FROM complaint c
+            LEFT JOIN ms_customer cust ON c.customer = cust.customer_id
+            ORDER BY c.created_at DESC
+            LIMIT @pageSize OFFSET @offset
+        ";
+        string countSql = "SELECT COUNT(*) FROM complaint";
+        using NpgsqlConnection conn = new(_connString);
+        using NpgsqlCommand cmd = new(sql, conn);
+        using NpgsqlCommand countCmd = new(countSql, conn);
+        try
+        {
+            await conn.OpenAsync();
+            cmd.Parameters.AddWithValue("@pageSize", pageSize);
+            cmd.Parameters.AddWithValue("@offset", (page - 1) * pageSize);
+            using NpgsqlDataReader reader = await cmd.ExecuteReaderAsync();
+            while (await reader.ReadAsync())
+            {
+                complaints.Add(new ComplaintModel
+                {
+                    ComplaintNo = reader.GetString(0),
+                    MPNo = reader.GetString(1),
+                    Description = reader.GetString(2),
+                    Customer = new Customer.Model
+                    {
+                        CustomerId = reader.GetString(3),
+                        Name = reader.IsDBNull(4) ? null : reader.GetString(4)
+                    },
+                    Sales = reader.GetString(5),
+                    Status = reader.GetString(6)
+                });
+            }
+            reader.Close();
+            int totalCount = Convert.ToInt32(await countCmd.ExecuteScalarAsync());
+            return (complaints, totalCount);
+        }
+        catch (Exception ex)
+        {
+            throw new Exception($"Database error: {ex.Message}");
+        }
+    }
+
+    public async Task<ComplaintModel> GetComplaintById(string complaintId)
+    {
+        string sql = @"
+            SELECT c.complaint_id, c.mp_no, c.description, c.customer, cust.name, c.sales, c.status,
+                   c.resolved_at, c.created_at, c.updated_at
+            FROM complaint c
+            LEFT JOIN ms_customer cust ON c.customer = cust.customer_id
+            WHERE c.complaint_id = @complaintId
+        ";
+        using NpgsqlConnection conn = new(_connString);
+        using NpgsqlCommand cmd = new(sql, conn);
+        try
+        {
+            await conn.OpenAsync();
+            cmd.Parameters.AddWithValue("@complaintId", complaintId);
+            using NpgsqlDataReader reader = await cmd.ExecuteReaderAsync();
+            if (await reader.ReadAsync())
+            {
+                return new ComplaintModel
+                {
+                    ComplaintNo = reader.GetString(0),
+                    MPNo = reader.GetString(1),
+                    Description = reader.GetString(2),
+                    Customer = new Customer.Model
+                    {
+                        CustomerId = reader.GetString(3),
+                        Name = reader.IsDBNull(4) ? null : reader.GetString(4)
+                    },
+                    Sales = reader.GetString(5),
+                    Status = reader.GetString(6)
+                };
+            }
+            throw new Exception("Complaint not found");
+        }
+        catch (Exception ex)
+        {
+            throw new Exception($"Database error: {ex.Message}");
+        }
+    }
+
     public async Task<string> CreateComplaint(ComplaintModel model)
     {
         string sql = @"
             INSERT INTO complaint (
-                complaint_id, no_mp, description, customer, sales, status,
+                mp_no, description, customer, sales, status,
                 created_at, updated_at
             ) VALUES (
-                @complaintId, @noMp, @description, @customer, @sales, @status,
+                @mpNo, @description, @customer, @sales, @status,
                 NOW(), NOW()
             )
             RETURNING complaint_id
@@ -28,8 +115,7 @@ public class Service
         try
         {
             await conn.OpenAsync();
-            cmd.Parameters.AddWithValue("@complaintId", model.ComplaintNo);
-            cmd.Parameters.AddWithValue("@noMp", model.MPNo);
+            cmd.Parameters.AddWithValue("@mpNo", model.MPNo);
             cmd.Parameters.AddWithValue("@description", model.Description);
             cmd.Parameters.AddWithValue("@customer", model.Customer?.CustomerId ?? string.Empty);
             cmd.Parameters.AddWithValue("@sales", model.Sales);
@@ -48,7 +134,7 @@ public class Service
     {
         string sql = @"
             UPDATE complaint SET
-                no_mp = @noMp,
+                mp_no = @mpNo,
                 description = @description,
                 customer = @customer,
                 sales = @sales,
@@ -62,7 +148,7 @@ public class Service
         {
             await conn.OpenAsync();
             cmd.Parameters.AddWithValue("@complaintId", complaintId);
-            cmd.Parameters.AddWithValue("@noMp", model.MPNo);
+            cmd.Parameters.AddWithValue("@mpNo", model.MPNo);
             cmd.Parameters.AddWithValue("@description", model.Description);
             cmd.Parameters.AddWithValue("@customer", model.Customer?.CustomerId ?? string.Empty);
             cmd.Parameters.AddWithValue("@sales", model.Sales);

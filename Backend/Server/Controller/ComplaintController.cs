@@ -17,6 +17,86 @@ namespace Server.Controller
                 throw new ArgumentNullException("Connection string 'DefaultConnection' tidak ditemukan.");
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetComplaints([FromQuery] int page = 1, [FromQuery] int pageSize = 10)
+        {
+            try
+            {
+                Service service = new(_connString);
+                var (complaints, totalCount) = await service.GetComplaints(page, pageSize);
+                var pagination = new Pagination
+                {
+                    CurrentPage = page,
+                    PageSize = pageSize,
+                    TotalItems = totalCount
+                };
+                return Ok(new Response<List<ComplaintModel>?>
+                {
+                    StatusCode = 200,
+                    Ok = true,
+                    Data = complaints,
+                    Error = null
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new Response<List<ComplaintModel>?>
+                {
+                    StatusCode = 500,
+                    Ok = false,
+                    Data = null,
+                    Error = new { message = ex.Message }
+                });
+            }
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetComplaintById(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                return NotFound(new Response<ComplaintModel?>
+                {
+                    StatusCode = 404,
+                    Ok = false,
+                    Data = null,
+                    Error = new { message = "Komplain tidak ditemukan" }
+                });
+            }
+            Service service = new(_connString);
+            try
+            {
+                var complaint = await service.GetComplaintById(id);
+                return Ok(new Response<ComplaintModel?>
+                {
+                    StatusCode = 200,
+                    Ok = true,
+                    Data = complaint,
+                    Error = null
+                });
+            }
+            catch (Exception ex) when (ex.Message.Contains("Complaint not found"))
+            {
+                return NotFound(new Response<ComplaintModel?>
+                {
+                    StatusCode = 404,
+                    Ok = false,
+                    Data = null,
+                    Error = new { message = "Komplain tidak ditemukan" }
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new Response<ComplaintModel?>
+                {
+                    StatusCode = 500,
+                    Ok = false,
+                    Data = null,
+                    Error = new { message = ex.Message }
+                });
+            }
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateComplaint([FromBody] ComplaintRequest request)
         {
@@ -36,7 +116,6 @@ namespace Server.Controller
 
             ComplaintModel model = new()
             {
-                ComplaintNo = request.ComplaintNo,
                 MPNo = request.MPNo,
                 Description = request.Description,
                 Customer = new Customer.Model { CustomerId = request.Customer },

@@ -8,7 +8,7 @@ public class Model
     [JsonPropertyName("name")]
     public required string Name { get; set; }
     [JsonPropertyName("role")]
-    public required int Role { get; set; }
+    public required string Role { get; set; }
     [JsonPropertyName("email")]
     public required string Email { get; set; }
     [JsonPropertyName("password")]

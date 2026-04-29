@@ -128,7 +128,7 @@ public class Service
     public async Task<List<Model>> GetUsers()
     {
         List<Model> users = new();
-        string sql = "SELECT user_id, user_name, email, password, role, active FROM users ORDER BY user_id";
+        string sql = "SELECT user_id, name, email, password, role, active FROM users ORDER BY user_id";
         using NpgsqlConnection conn = new(_connString);
         using NpgsqlCommand cmd = new(sql, conn);
         try
@@ -149,7 +149,7 @@ public class Service
                 Name = reader.GetString(1),
                 Email = reader.GetString(2),
                 Password = reader.GetString(3),
-                Role = reader.GetInt32(4),
+                Role = reader.GetString(4),
                 Active = reader.GetBoolean(5)
             };
             users.Add(model);
@@ -158,10 +158,10 @@ public class Service
         return users;
     }
 
-    public async Task<Model?> GetUserById(int userId)
+    public async Task<Model?> GetUserById(string userId)
     {
         Model? model = null;
-        string sql = "SELECT user_id, user_name, email, password, role, active FROM users WHERE user_id = @userid";
+        string sql = "SELECT user_id, name, email, password, role, active FROM users WHERE user_id = @userid";
         using NpgsqlConnection conn = new(_connString);
         using NpgsqlCommand cmd = new(sql, conn);
         try
@@ -183,7 +183,7 @@ public class Service
                 Name = reader.GetString(1),
                 Email = reader.GetString(2),
                 Password = reader.GetString(3),
-                Role = reader.GetInt32(4),
+                Role = reader.GetString(4),
                 Active = reader.GetBoolean(5)
             };
         }

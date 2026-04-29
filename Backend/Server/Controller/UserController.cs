@@ -47,10 +47,10 @@ namespace Server.Controller
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetUserById(int id)
+        public async Task<IActionResult> GetUserById(string id)
         {
             Model? user = null;
-            if (id <= 0)
+            if (string.IsNullOrEmpty(id))
             {
                 return NotFound(new Response<Model?>
                 {
