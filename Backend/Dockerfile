@@ -1,8 +1,8 @@
 # Use the SDK image to build the app
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-WORKDIR /app
+WORKDIR /src
 
-# Copy solution and all project files to restore dependencies (layer-cached)
+# Copy solution and all project files first so restore stays layer-cached.
 COPY AssetManagement.sln ./
 COPY Server/Server.csproj ./Server/
 COPY Auth/Auth.csproj ./Auth/
@@ -18,15 +18,21 @@ COPY Supplier/Supplier.csproj ./Supplier/
 COPY Assignment/Assignment.csproj ./Assignment/
 COPY Complaint/Complaint.csproj ./Complaint/
 COPY StockSparepart/StockSparepart.csproj ./StockSparepart/
-RUN dotnet restore
+RUN dotnet restore ./AssetManagement.sln
 
-# Copy everything else and publish the Server project
+# Copy the remaining source and publish only the web host.
 COPY . ./
-RUN dotnet publish Server/Server.csproj -c Release -o out
+RUN dotnet publish ./Server/Server.csproj -c Release -o /app/publish /p:UseAppHost=false
 
 # Build the runtime image
-FROM mcr.microsoft.com/dotnet/aspnet:8.0
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
 WORKDIR /app
-COPY --from=build /app/out .
+
+ENV ASPNETCORE_ENVIRONMENT=Production
+ENV PORT=5000
+
+EXPOSE 5000
+
+COPY --from=build /app/publish .
 
 ENTRYPOINT ["dotnet", "Server.dll"]

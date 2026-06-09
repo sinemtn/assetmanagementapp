@@ -2,3 +2,6 @@
 **/obj/
 **/.vs/
 **/*.user
+.git/
+.gitignore
+README.md
